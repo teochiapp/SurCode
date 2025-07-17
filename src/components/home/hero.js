@@ -176,23 +176,3 @@ const ContactButton = styled.button`
     transform: translateY(-2px);
   }
 `
-
-const WavyLine = styled.div`
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(90deg, #66D3FA, transparent);
-  border-radius: 2px;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: linear-gradient(90deg, #66D3FA, transparent);
-    border-radius: 4px;
-    opacity: 0.5;
-  }
-`
