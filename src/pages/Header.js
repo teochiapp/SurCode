@@ -27,9 +27,7 @@ function Header() {
 
       {/* Sección 3: Botón de Contacto */}
       <ContactSection>
-        <ContactButton>
-          Contáctanos
-        </ContactButton>
+        <ContactButton size="medium">Contáctanos</ContactButton>
       </ContactSection>
 
       {/* Menú móvil */}
@@ -50,9 +48,9 @@ function Header() {
             <StyledLink href="#servicios" onClick={() => setIsOpen(false)}>Servicios</StyledLink>
             <StyledLink href="#proyectos" onClick={() => setIsOpen(false)}>Proyectos</StyledLink>
             <StyledLink href="#contacto" onClick={() => setIsOpen(false)}>Contacto</StyledLink>
-            <MobileContactButton onClick={() => setIsOpen(false)}>
+            <ContactButton size="large" style={{marginTop: '1rem'}} onClick={() => setIsOpen(false)}>
               Contáctanos
-            </MobileContactButton>
+            </ContactButton>
           </MobileMenu>
         )}
       </AnimatePresence>

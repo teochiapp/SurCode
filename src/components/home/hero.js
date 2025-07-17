@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import DarkVeil from './extensions/DarkVeil';
+import DarkVeil from './extensions/DarkVeil'
+import ShinyText from './extensions/ShinyText'
 
+  
 function Hero() {
   return (
     <HeroWrapper>
@@ -34,7 +36,7 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Title>
-              Transformamos ideas en soluciones tecnológicas
+              <ShinyText text="Transformamos ideas en soluciones tecnológicas" disabled={false} speed={3} className='custom-class' />
             </Title>
           </motion.div>
           
