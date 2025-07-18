@@ -1,12 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
-import Hero from '../components/home/hero'
-import Card3D from '../components/home/aboutUsComponents/card3D'
+import Hero from '../components/hero/hero'
+import Services from '../components/services/services'
+import Portfolio from '../components/portfolio/portfolio'
+import Team from '../components/team/Team'
+import Contact from '../components/contact/contact'
+
 const Home = () => {
   return (
     <HomeContainer>
         <Hero />
-        <Card3D />
+        <Team />
+        <Portfolio />
+        <Contact />
     </HomeContainer>
   )
 }

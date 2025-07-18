@@ -6,7 +6,7 @@
   /* Fuentes */
   --heading-font: "Red Hat Display", sans-serif;
   --text-font: "Space Grotesk", sans-serif;
-
+  
   /* Colores */
   --background-color: #0A0A0A;   /* fondo principal */
   --primary-color: #66D3FA;      /* celeste argentino claro */
@@ -17,15 +17,15 @@
 
   /* Color Secundario */
   --secondary-color: #FFD26F;         /* o #FFF4B1 */
-  --secondary-dark: #E6B84D;
-  --secondary-accent: #FFECB0; /* más brillante para luces o efectos */
+  --secondary-dark: #B68F2A;        /* dorado profundo */
+  --secondary-accent: #F8E7B3;  
 
   --primary-cyan: rgb(13, 211, 250);
     --primary-white: rgb(251, 255, 255);
     --dark-blue: rgb(3, 9, 18);
     --medium-blue: rgb(16, 124, 157);
     --deep-blue: rgb(10, 44, 72);
-    
+
     --gradient-primary: linear-gradient(135deg, var(--primary-cyan), var(--medium-blue));
     --gradient-secondary: linear-gradient(135deg, var(--deep-blue), var(--dark-blue));
     --gradient-card: linear-gradient(145deg, rgba(13, 211, 250, 0.1), rgba(16, 124, 157, 0.1));
@@ -118,3 +118,5 @@ img {
 .shiny-text.disabled {
   animation: none;
 }
+
+

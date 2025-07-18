@@ -1,14 +1,36 @@
-import '../../../index.css'
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+import "../../index.css";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import React, { useRef } from "react";
+import styled from "styled-components";
 
-// CSS usando styled-components - DEBE IR ANTES del componente
+const Card3D = ({ title, description, image }) => {
+  const cardreft = useRef(null);
+
+  return (
+    <CardContainer ref={cardreft}>
+      <Cardimage src={image} alt="Roma" className="cardimage" />
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <SocialLinks>
+        <SocialIcon href="#" aria-label="GitHub">
+          <FaGithub />
+        </SocialIcon>
+        <SocialIcon href="#" aria-label="LinkedIn">
+          <FaLinkedin />
+        </SocialIcon>
+        <SocialIcon href="#" aria-label="Instagram">
+          <FaInstagram />
+        </SocialIcon>
+      </SocialLinks>
+    </CardContainer>
+  );
+};
+
+export default Card3D;
 
 const SocialLinks = styled.div`
   display: flex;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 25px;
 `;
 
 const SocialIcon = styled.a`
@@ -33,12 +55,16 @@ const Cardimage = styled.img`
 const CardContainer = styled.div`
   width: 300px;
   height: 400px;
-  background: radial-gradient(circle at 50% 30%, rgba(13,211,250,0.18) 0%, rgba(16,124,157,0.10) 100%);
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(13, 211, 250, 0.18) 0%,
+    rgba(16, 124, 157, 0.1) 100%
+  );
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   animation: shadowRotate 0.4s linear infinite;
-  
+
   &:hover {
     box-shadow: 0 0 80px 20px var(--medium-blue);
   }
@@ -61,12 +87,13 @@ const CardContainer = styled.div`
   }
 
   p {
-    font-size: 16px;
+    font-size: 18px;
     font-family: var(--heading-font);
-    background: var(--gradient-primary);
+    background: var(--text-color);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
+    font-weight: 800;
   }
 
   @keyframes shadowRotate {
@@ -87,34 +114,3 @@ const CardContainer = styled.div`
     }
   }
 `;
-
-const Card3D = () => {
-    const cardreft = useRef(null);
-
-    return (
-        <CardContainer
-            ref={cardreft}
-        >
-            <Cardimage
-                src='Img/ROMA.png'
-                alt='Roma'
-                className='cardimage'
-            />
-            <h2>Tomás Cejas</h2>
-            <p>Ceo & Founder</p>
-            <SocialLinks>
-              <SocialIcon href="#" aria-label="GitHub">
-                <FaGithub />
-              </SocialIcon>
-              <SocialIcon href="#" aria-label="LinkedIn">
-                <FaLinkedin />
-              </SocialIcon>
-              <SocialIcon href="#" aria-label="Instagram">
-                <FaInstagram />
-              </SocialIcon>
-            </SocialLinks>
-        </CardContainer>
-    );
-};
-
-export default Card3D;

@@ -4,7 +4,6 @@ import Footer from './pages/Footer'
 import AppRoutes from './AppRoutes'
 import './index.css'
 
-
 function App() {
   return (
     <>

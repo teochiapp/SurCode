@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion'
 import DarkVeil from './extensions/DarkVeil'
-import ShinyText from './extensions/ShinyText'
+import SplitText from "./extensions/SplitText";
+import AnimatedButton from './extensions/AnimatedButton';
 
-  
 function Hero() {
   return (
     <HeroWrapper>
@@ -13,7 +13,7 @@ function Hero() {
           hueShift={37}
           noiseIntensity={0.0}
           scanlineIntensity={0}
-          speed={0.8}
+          speed={1.2}
           scanlineFrequency={0.5}
           warpAmount={0.1}
           resolutionScale={1}
@@ -36,7 +36,18 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Title>
-              <ShinyText text="Transformamos ideas en soluciones tecnológicas" disabled={false} speed={3} className='custom-class' />
+              <SplitText
+                text="Transformamos ideas en soluciones tecnológicas"
+                className="text-2xl font-semibold"
+                delay={60}
+                duration={0.6}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-100px"
+              />
             </Title>
           </motion.div>
           
@@ -55,9 +66,8 @@ function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <ContactButton>
-              Contáctanos →
-            </ContactButton>
+          <AnimatedButton>Contactanos!</AnimatedButton>
+ 
           </motion.div>
           
           <motion.div
@@ -131,17 +141,25 @@ const CustomDevTag = styled.span`
   border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 500;
-  margin-left: 1rem;
+  margin-left: 0;
   backdrop-filter: blur(10px);
 `
 
-const Title = styled.h1`
+const Title = styled.h3`
   font-family: var(--text-font, 'Red Hat Display', sans-serif);
   font-size: 3rem;
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 1.5rem;
+  margin: 0 !important;
+  padding: 0 !important;
   color: white;
+  text-align: left !important;
+
+  p {
+    margin-bottom: 0;
+  text-align: left !important;
+
+  }
 
   @media (min-width: 768px) {
     font-size: 3.5rem;
@@ -159,22 +177,4 @@ const Subtitle = styled.p`
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 2rem;
   max-width: 500px;
-`
-
-const ContactButton = styled.button`
-  background: var(--primary-dark, #66D3FA);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 2rem;
-
-  &:hover {
-    background: #5BC0E6;
-    transform: translateY(-2px);
-  }
 `
