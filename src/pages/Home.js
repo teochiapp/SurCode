@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import Hero from '../components/home/hero'
+import Card3D from '../components/home/aboutUsComponents/card3D'
 const Home = () => {
   return (
     <HomeContainer>
         <Hero />
-       
+        <Card3D />
     </HomeContainer>
   )
 }
