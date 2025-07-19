@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi';
-import { motion, AnimatePresence } from 'framer-motion';
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link as ScrollLink } from "react-scroll";
+import { FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import AnimatedButton from "../components/hero/extensions/AnimatedButton";
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,17 +17,52 @@ function Header() {
       {/* Sección 2: Menú de Navegación */}
       <NavSection>
         <Nav>
-          <StyledLink to="/">Inicio</StyledLink>
-          <StyledLink to="/about">About</StyledLink>
-          <StyledLink href="#servicios">Servicios</StyledLink>
-          <StyledLink href="#proyectos">Proyectos</StyledLink>
-          <StyledLink href="#contacto">Contacto</StyledLink>
+          <StyledLink
+            to="hero"
+            smooth={true}
+            duration={300}
+            onClick={() => setIsOpen(false)}
+          >
+            Inicio
+          </StyledLink>
+          <StyledLink
+            to="servicios"
+            smooth={true}
+            duration={300}
+            onClick={() => setIsOpen(false)}
+          >
+            Servicios
+          </StyledLink>
+          <StyledLink
+            to="team"
+            smooth={true}
+            duration={300}
+            onClick={() => setIsOpen(false)}
+          >
+            Equipo
+          </StyledLink>
+          <StyledLink
+            to="portfolio"
+            smooth={true}
+            duration={300}
+            onClick={() => setIsOpen(false)}
+          >
+            Proyectos
+          </StyledLink>
+          <StyledLink
+            to="contact"
+            smooth={true}
+            duration={300}
+            onClick={() => setIsOpen(false)}
+          >
+            Contacto
+          </StyledLink>
         </Nav>
       </NavSection>
 
       {/* Sección 3: Botón de Contacto */}
       <ContactSection>
-        <ContactButton size="medium">Contáctanos</ContactButton>
+        <AnimatedButton to="#contact">Contactanos!</AnimatedButton>
       </ContactSection>
 
       {/* Menú móvil */}
@@ -39,18 +74,44 @@ function Header() {
         {isOpen && (
           <MobileMenu
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
+            animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <StyledLink to="/" onClick={() => setIsOpen(false)}>Inicio</StyledLink>
-            <StyledLink to="/about" onClick={() => setIsOpen(false)}>About</StyledLink>
-            <StyledLink href="#servicios" onClick={() => setIsOpen(false)}>Servicios</StyledLink>
-            <StyledLink href="#proyectos" onClick={() => setIsOpen(false)}>Proyectos</StyledLink>
-            <StyledLink href="#contacto" onClick={() => setIsOpen(false)}>Contacto</StyledLink>
-            <ContactButton size="large" style={{marginTop: '1rem'}} onClick={() => setIsOpen(false)}>
-              Contáctanos
-            </ContactButton>
+            <StyledLink
+              to="servicios"
+              smooth={true}
+              duration={500}
+              onClick={() => setIsOpen(false)}
+            >
+              Servicios
+            </StyledLink>
+            <StyledLink
+              to="team"
+              smooth={true}
+              duration={500}
+              onClick={() => setIsOpen(false)}
+            >
+              Equipo
+            </StyledLink>
+            <StyledLink
+              to="portfolio"
+              smooth={true}
+              duration={500}
+              onClick={() => setIsOpen(false)}
+            >
+              Proyectos
+            </StyledLink>
+            <StyledLink
+              to="contact"
+              smooth={true}
+              duration={500}
+              onClick={() => setIsOpen(false)}
+            >
+              Contacto
+            </StyledLink>
+
+            <AnimatedButton to="#contact">Contactanos!</AnimatedButton>
           </MobileMenu>
         )}
       </AnimatePresence>
@@ -84,7 +145,6 @@ const LogoSection = styled.div`
 const LogoImg = styled.img`
   height: 120px;
   object-fit: contain;
-  margin-top: 20px;
 `;
 
 const NavSection = styled.div`
@@ -113,23 +173,6 @@ const ContactSection = styled.div`
   }
 `;
 
-const ContactButton = styled.button`
-  background: var(--primary-dark, #66D3FA);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: #5BC0E6;
-    transform: translateY(-2px);
-  }
-`;
-
 const MobileMenuIcon = styled.div`
   display: none;
   font-size: 1.8rem;
@@ -151,37 +194,21 @@ const MobileMenu = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
-const MobileContactButton = styled.button`
-  background: var(--primary-dark, #66D3FA);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 1rem;
-
-  &:hover {
-    background: #5BC0E6;
-  }
-`;
-
-const StyledLink = styled(Link)`
+const StyledLink = styled(ScrollLink)`
   text-decoration: none;
   position: relative;
   overflow: hidden;
   z-index: 2;
-  font-size: 1rem;   
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1rem;
   text-transform: uppercase;
   color: inherit;
   font-family: var(--heading-font);
+  cursor: pointer;
 
   &::before,
   &::after {
@@ -199,4 +226,3 @@ const StyledLink = styled(Link)`
     right: 0;
   }
 `;
-

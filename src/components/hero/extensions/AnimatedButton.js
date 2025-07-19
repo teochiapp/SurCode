@@ -1,10 +1,20 @@
 // components/AnimatedButton.js
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Link as ScrollLink } from 'react-scroll';
 
-const AnimatedButton = ({ children = "Contáctanos", ...props }) => {
+const AnimatedButton = ({ children = "Contáctanos", to, ...props }) => {
+  const handleClick = () => {
+    if (to) {
+      const element = document.getElementById(to.replace('#', ''));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
-    <Button {...props}>
+    <Button onClick={handleClick} {...props}>
       <svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
       </svg>
@@ -85,7 +95,7 @@ const Button = styled.button`
 
   &:hover {
     box-shadow: 0 0 0 12px transparent;
-    color: #212121;
+    color: var(--background-color);
     border-radius: 12px;
 
     .arr-1 {
@@ -101,13 +111,14 @@ const Button = styled.button`
     }
 
     svg {
-      fill: #212121;
+      fill: var(--background-color);
     }
 
     .circle {
       width: 220px;
       height: 220px;
       opacity: 1;
+      background-color: var(--secondary-color);
     }
   }
 

@@ -6,19 +6,19 @@ import Card3D from './card3D';
 
 
 const Container = styled.div`
- display: flex;
- gap: 20px;
- 
+  display: flex;
+  gap: 20px;
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
 
- @media (max-width: 768px) {
-   flex-direction: column;
-`
 
 const Team = () => {
 
     return (
-     <Container> 
+     <Container id="team"> 
 
         <Card3D 
         title="Tomás Cejas" 

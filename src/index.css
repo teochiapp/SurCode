@@ -62,6 +62,17 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
+/* ========== Selección de texto ========== */
+::selection {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+::-moz-selection {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
 p {
   margin-bottom: 1em;
   max-width: 70ch;
@@ -118,5 +129,4 @@ img {
 .shiny-text.disabled {
   animation: none;
 }
-
 
