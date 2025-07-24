@@ -1,0 +1,134 @@
+/* ================================
+   Base CSS para Web SurCode
+   ================================ */
+
+:root {
+  /* Fuentes */
+  --heading-font: "Red Hat Display", sans-serif;
+  --text-font: "Space Grotesk", sans-serif;
+  
+  /* Colores */
+  --background-color: #0A0A0A;   /* fondo principal */
+  --primary-color: #66D3FA;      /* celeste argentino claro */
+  --primary-dark: #2BA4D8;       /* hover o sombras */
+  --accent-color: #00BFFF;       /* azul brillante (CTAs, íconos) */
+  --text-color: #E6E6E6;         /* blanco suave */
+  --secondary-bg: #121A2E;       /* para secciones */
+
+  /* Color Secundario */
+  --secondary-color: #FFD26F;         /* o #FFF4B1 */
+  --secondary-dark: #B68F2A;        /* dorado profundo */
+  --secondary-accent: #F8E7B3;  
+
+  --primary-cyan: rgb(13, 211, 250);
+    --primary-white: rgb(251, 255, 255);
+    --dark-blue: rgb(3, 9, 18);
+    --medium-blue: rgb(16, 124, 157);
+    --deep-blue: rgb(10, 44, 72);
+
+    --gradient-primary: linear-gradient(135deg, var(--primary-cyan), var(--medium-blue));
+    --gradient-secondary: linear-gradient(135deg, var(--deep-blue), var(--dark-blue));
+    --gradient-card: linear-gradient(145deg, rgba(13, 211, 250, 0.1), rgba(16, 124, 157, 0.1));
+}
+
+
+/* ========== Reset básico ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--text-font);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+/* ========== Elementos globales ========== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+  color: var(--text-color);
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+/* ========== Selección de texto ========== */
+::selection {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+::-moz-selection {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+p {
+  margin-bottom: 1em;
+  max-width: 70ch;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.darkveil-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ========== SHINY TEXT ========== */
+
+.shiny-text {
+  color: #b5b5b5a4; /* Adjust this color to change intensity/style */
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.shiny-text.disabled {
+  animation: none;
+}
+
+
