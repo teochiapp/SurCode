@@ -1,4 +1,4 @@
-import { FaReact, FaNodeJs, FaDatabase, FaWordpress } from 'react-icons/fa';
+import { FaReact, FaNodeJs, FaDatabase, FaWordpress, FaJs } from 'react-icons/fa';
 
 const cardsPortfolio = [
   {
@@ -18,7 +18,7 @@ const cardsPortfolio = [
   url: 'https://joycofmakeup.com/',
   techs: [
     { name: 'WordPress', icon: <FaWordpress color="#21759B" /> },
-    { name: 'CSS3', icon: <FaDatabase color="#264de4" /> }, // o podés usar otro ícono si querés diferenciar
+    { name: 'CSS3', icon: <FaDatabase color="#264de4" /> },
   ],
 },
   {
@@ -38,6 +38,7 @@ const cardsPortfolio = [
     image: '/portfolio/sada.png',
     techs: [
       { name: 'Node.js', icon: <FaNodeJs color="#3C873A" /> },
+      { name: 'JavaScript', icon: <FaJs color="#F7DF1E" /> },
       { name: 'MySQL', icon: <FaDatabase color="#00758F" /> },
       { name: 'Express', icon: <FaDatabase color="#00758F" /> },
     ],
