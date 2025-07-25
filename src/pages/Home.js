@@ -6,6 +6,7 @@ import Hero from '../components/hero/hero'
 import Services from '../components/services/services'
 import Portfolio from '../components/portfolio/portfolio'
 import Team from '../components/team/Team'
+import TeamMobile from '../components/team/TeamMobile';
 import Blog from '../components/blog/blog'
 import Contact from '../components/contact/contact'
 import Skills from '../components/skills/skills'
@@ -58,8 +59,15 @@ const Home = () => {
           animate={isSkillsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.96 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <Team />
+          <TeamDesktopWrapper>
+            <Team />
+          </TeamDesktopWrapper>
+
+          <TeamMobileWrapper>
+            <TeamMobile />
+          </TeamMobileWrapper>
         </motion.div>
+
 
         <motion.div
           ref={blogRef}
@@ -110,3 +118,18 @@ const HomeContainer = styled.main`
   flex-direction: column;
   width: 100%;
 `
+const TeamDesktopWrapper = styled.div`
+  display: block;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+const TeamMobileWrapper = styled.div`
+  display: none;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+`;

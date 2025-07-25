@@ -129,29 +129,31 @@ const PersonSelector = ({ people, currentIndex }) => {
                 <RightCol>
                     <ImageAndSocialContainer>
                         <ImageContainer>
-                            <ProfileImg src={person.image} alt={person.name} />
+                            <ProfileImg src={person.fullImage || person.image} alt={person.name} />
                             <ImageOverlay />
                         </ImageContainer>
                         
-                        <SocialSection>
-                            <SocialLinks>
-                                {personSocial?.github && (
-                                    <SocialIcon href={personSocial.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                                        <FaGithub />
-                                    </SocialIcon>
-                                )}
-                                {personSocial?.linkedin && (
-                                    <SocialIcon href={personSocial.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                                        <FaLinkedin />
-                                    </SocialIcon>
-                                )}
-                                {personSocial?.instagram && (
-                                    <SocialIcon href={personSocial.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                        <FaInstagram />
-                                    </SocialIcon>
-                                )}
-                            </SocialLinks>
-                        </SocialSection>
+                        {personSocial && (personSocial.github || personSocial.linkedin || personSocial.instagram) && (
+                            <SocialSection>
+                                <SocialLinks>
+                                    {personSocial.github && personSocial.github.trim() !== '' && (
+                                        <SocialIcon href={personSocial.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                            <FaGithub />
+                                        </SocialIcon>
+                                    )}
+                                    {personSocial.linkedin && personSocial.linkedin.trim() !== '' && (
+                                        <SocialIcon href={personSocial.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                            <FaLinkedin />
+                                        </SocialIcon>
+                                    )}
+                                    {personSocial.instagram && personSocial.instagram.trim() !== '' && (
+                                        <SocialIcon href={personSocial.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                            <FaInstagram />
+                                        </SocialIcon>
+                                    )}
+                                </SocialLinks>
+                            </SocialSection>
+                        )}
                     </ImageAndSocialContainer>
                     
                    

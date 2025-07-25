@@ -2,9 +2,11 @@
 export const people = [
   {
     name: "Tomás Cejas",
+    surname: "Toto",
     description: "Fullstack Developer",
     role: "Fullstack",
     image: "team/ROMA.png",
+    fullImage: "team/ROMA.png",
     skills: ["Node.js", "Docker", "MySQL", "React"],
     social: {
       github: "https://github.com/tomascejas",
@@ -19,9 +21,11 @@ export const people = [
   },
   {
     name: "Teo Chiappero",
+    surname: "Teo",
     description: "Fullstack Developer",
     role: "Frontend",
     image: "team/Teo.png",
+    fullImage: "team/TeoFull.jpg",
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiappero",
@@ -36,9 +40,11 @@ export const people = [
   },
   {
     name: "Jacky Vazquez",
+    surname: "Jacky",
     description: "UX/UI Designer",
     role: "UX/UI",
     image: "team/Jacky.png",
+    fullImage: "team/Jacky.png",
     skills: ["Figma", "Illustrator", "Photoshop", "Prototyping"],
     social: {
       github: "https://github.com/jacky",
@@ -53,9 +59,11 @@ export const people = [
   },
   {
     name: "Faustina",
+    surname: "Lud",
     description: "UX/UI Designer",
     role: "UX/UI",
     image: "team/lu.png",
+    fullImage: "team/lu.png",
     skills: ["Figma", "Adobe XD", "Sketch", "User Research"],
     social: {
       github: "https://github.com/faustina",
