@@ -121,18 +121,40 @@ export default function DarkVeil({
     window.addEventListener("resize", resize);
     resize();
 
-    let start = performance.now(),
-      frame = 0;
+    let start = performance.now();
+    let frame = 0;
+    let lastFrameTime = 0;
+    let isVisible = true;
+    const targetFPS = 30; // Reducir FPS para mejor rendimiento
+    const frameInterval = 1000 / targetFPS;
 
-    const loop = () => {
-      program.uniforms.uTime.value =
-        ((performance.now() - start) / 1000) * speed;
-      program.uniforms.uHueShift.value = hueShift;
-      program.uniforms.uNoise.value = noiseIntensity;
-      program.uniforms.uScan.value = scanlineIntensity;
-      program.uniforms.uScanFreq.value = scanlineFrequency;
-      program.uniforms.uWarp.value = warpAmount;
-      renderer.render({ scene: mesh });
+    // Intersection Observer para pausar cuando no está visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (canvas) {
+      observer.observe(canvas);
+    }
+
+    const loop = (currentTime) => {
+      // Throttle FPS para mejor rendimiento
+      if (currentTime - lastFrameTime >= frameInterval && isVisible) {
+        program.uniforms.uTime.value =
+          ((performance.now() - start) / 1000) * speed;
+        program.uniforms.uHueShift.value = hueShift;
+        program.uniforms.uNoise.value = noiseIntensity;
+        program.uniforms.uScan.value = scanlineIntensity;
+        program.uniforms.uScanFreq.value = scanlineFrequency;
+        program.uniforms.uWarp.value = warpAmount;
+        renderer.render({ scene: mesh });
+        lastFrameTime = currentTime;
+      }
       frame = requestAnimationFrame(loop);
     };
 
@@ -141,6 +163,9 @@ export default function DarkVeil({
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [
     hueShift,

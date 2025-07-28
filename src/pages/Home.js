@@ -37,27 +37,27 @@ const Home = () => {
         
         <motion.div
           ref={servicesRef}
-          initial={{ opacity: 0, x: -100, rotate: -10 }}
-          animate={isServicesInView ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: -100, rotate: -10 }}
-          transition={{ duration: 1.2, ease: "backOut" }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={isServicesInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Services />
         </motion.div>
         
         <motion.div
           ref={portfolioRef}
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          animate={isPortfolioInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isPortfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
         <Portfolio /> 
         </motion.div>
 
         <motion.div
           ref={teamRef}
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={isTeamInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.95 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isTeamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <TeamDesktopWrapper>
             <Team />
@@ -71,27 +71,27 @@ const Home = () => {
 
         <motion.div
           ref={skillsRef}
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          animate={isSkillsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.98 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isSkillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Skills />
         </motion.div>
         
         <motion.div
           ref={blogRef}
-          initial={{ opacity: 0, y: 60, scale: 0.96 }}
-          animate={isBlogInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.96 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isBlogInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <Blog />
         </motion.div>
         
       <motion.div
           ref={contactRef}
-          initial={{ opacity: 0, y: 80, scale: 0.92, rotateZ: -8 }}
-          animate={isContactInView ? { opacity: 1, y: 0, scale: 1, rotateZ: 0 } : { opacity: 0, y: 80, scale: 0.92, rotateZ: -8 }}
-          transition={{ duration: 1, ease: "backOut" }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isContactInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
         <Contact /> 
         </motion.div>
