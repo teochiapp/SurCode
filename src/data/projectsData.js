@@ -14,7 +14,7 @@ const cardsPortfolio = [
   {
   title: 'Joycof Make-Up',
   description: 'Sitio web personalizado para una artista del maquillaje profesional, con diseño visual atractivo, enfoque en la identidad de marca, y secciones dinámicas para portfolio, servicios y contacto. Totalmente administrable desde WordPress.',
-  image: '/portfolio/joycof.png',
+  image: '/portfolio/Joycof.png',
   url: 'https://joycofmakeup.com/',
   techs: [
     { name: 'WordPress', icon: <FaWordpress color="#21759B" /> },
