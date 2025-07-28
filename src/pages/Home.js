@@ -26,7 +26,7 @@ const Home = () => {
   const isServicesInView = useInView(servicesRef, { once: true, margin: "-100px" })
   const isTeamInView = useInView(teamRef, { once: true, margin: "-100px" })
   const isBlogInView = useInView(blogRef, { once: true, margin: "-100px" })
-  const isPortfolioInView = useInView(portfolioRef, { once: true, margin: "-100px" })
+  const isPortfolioInView = useInView(portfolioRef, { once: true, margin: "-150px" })
   const isContactInView = useInView(contactRef, { once: true, margin: "-100px" })
   const isSkillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
   const isFooterInView = useInView(footerRef, { once: true, margin: "-100px" });
@@ -46,9 +46,9 @@ const Home = () => {
         
         <motion.div
           ref={portfolioRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isPortfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isPortfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
         >
         <Portfolio /> 
         </motion.div>

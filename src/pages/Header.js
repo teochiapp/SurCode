@@ -64,7 +64,7 @@ function Header() {
       <NavSection isScrolled={isScrolled}>
         <Nav>
           <StyledLink
-            to="hero"
+            to="home"
             smooth={true}
             duration={300}
             onClick={() => setIsOpen(false)}
@@ -72,7 +72,7 @@ function Header() {
             Inicio
           </StyledLink>
           <StyledLink
-            to="servicios"
+            to="services"
             smooth={true}
             duration={300}
             onClick={() => setIsOpen(false)}
@@ -175,7 +175,7 @@ function Header() {
                   Equipo
                 </SidebarLink>
                 <SidebarLink
-                  to="proyectos"
+                  to="portfolio"
                   smooth={true}
                   duration={500}
                   onClick={() => setIsOpen(false)}

@@ -85,7 +85,7 @@ function Portfolio() {
   };
 
   return (
-    <PortfolioContainer ref={containerRef} id="proyectos">
+    <PortfolioContainer ref={containerRef} id="portfolio">
       <HeaderSection>
           <GradientText
             colors={["var(--text-color)", "var(--primary-color)", "var(--primary-cyan)", "var(--accent-color)", "var(--text-color)"]}

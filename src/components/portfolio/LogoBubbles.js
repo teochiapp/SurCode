@@ -94,12 +94,38 @@ const Bubble = styled.div`
   transition: all 0.3s ease;
   cursor: pointer;
   
-  &:hover {
-    transform: scale(1.1);
-    box-shadow: 
-      0 12px 30px rgba(13, 211, 250, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-color: var(--accent-color);
+  /* Solo aplicar hover en dispositivos no táctiles */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 
+        0 16px 35px rgba(13, 211, 250, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-color: var(--accent-color);
+    }
+  }
+
+  /* Remover cualquier estado de selección en móvil */
+  @media (max-width: 767px) {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &:active {
+      transform: translateY(2px);
+      transition: transform 0.1s ease;
+      box-shadow: 
+        0 4px 15px rgba(13, 211, 250, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
   }
 
   &:nth-child(2) {
@@ -122,8 +148,11 @@ const LogoImage = styled.img`
   filter: brightness(1.1);
   transition: filter 0.3s ease;
 
-  ${Bubble}:hover & {
-    filter: brightness(1.3);
+  /* Solo aplicar hover en dispositivos no táctiles */
+  @media (hover: hover) and (pointer: fine) {
+    ${Bubble}:hover & {
+      filter: brightness(1.3);
+    }
   }
 
   /* Filtro blanco para Joycof en mobile */
@@ -132,12 +161,22 @@ const LogoImage = styled.img`
       ? 'brightness(1.1) invert(1) brightness(2)' 
       : 'brightness(1.1)'
     };
-
+    
+    /* Remover hover effects en móvil */
     ${Bubble}:hover & {
       filter: ${props => props.isJoycof 
-        ? 'brightness(1.3) invert(1) brightness(2)' 
-        : 'brightness(1.3)'
+        ? 'brightness(1.1) invert(1) brightness(2)' 
+        : 'brightness(1.1)'
       };
+    }
+    
+    /* Efecto de tap más sutil en móvil */
+    ${Bubble}:active & {
+      filter: ${props => props.isJoycof 
+        ? 'brightness(1.2) invert(1) brightness(2)' 
+        : 'brightness(1.2)'
+      };
+      transition: filter 0.1s ease;
     }
   }
 `; 
