@@ -34,14 +34,6 @@ const SelectorContainer = styled.div`
 
 `;
 
-const SelectorTitle = styled.h4`
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--text-color);
-  text-align: center;
-`;
-
 const PeopleGrid = styled.div`
     display: flex;
     flex-direction: column;

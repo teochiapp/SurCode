@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
 import { FiHeart } from 'react-icons/fi'
 import FooterLogo from '../components/footer/FooterLogo'
 import FooterNav from '../components/footer/FooterNav'
@@ -146,8 +145,7 @@ const LinksColumn = styled.div`
   align-items: self-start;
 `
 
-const ColumnTitle = styled.h4`
-  font-size: 1.1rem;
+const ColumnTitle = styled.h4`  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 1.5rem;
@@ -212,3 +210,4 @@ const HeartIcon = styled.span`
     50% { transform: scale(1.1); }
   }
 `
+

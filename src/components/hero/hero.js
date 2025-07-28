@@ -1,8 +1,7 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion'
 import DarkVeil from './extensions/DarkVeil'
-import SplitText from "./extensions/SplitText";
 import AnimatedButton from './extensions/AnimatedButton';
 import GradientText from '../GradientText';
 import ScrollAnimatedIllustration from './extensions/ScrollAnimatedIllustration';

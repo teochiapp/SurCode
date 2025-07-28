@@ -467,12 +467,6 @@ const FormGroup = styled.div`
   flex-direction: column;
 `
 
-const FormLabel = styled.label`
-  color: var(--text-color);
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-`
-
 const FormInput = styled.input`
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);

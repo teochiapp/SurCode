@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiArrowLeft, FiCalendar, FiClock, FiUser, FiTag } from 'react-icons/fi'
 import { getBlogPostBySlug } from '../../data/blogData'

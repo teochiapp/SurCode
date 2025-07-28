@@ -1,5 +1,5 @@
 import '../../index.css';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import GradientText from '../GradientText';
 import ImageComplete from './mobile/ImageComplete';
@@ -8,7 +8,6 @@ import FullInformation from './mobile/FullInformation';
 
 import { 
   people, 
-  skills, 
   gradientColors, 
   animationConfig,
   getTotalPeople 
@@ -20,18 +19,18 @@ const Team = () => {
     const timerRef = useRef();
 
     // Función para iniciar el autoplay con un delay custom
-    const startAutoplay = (delay = 10000) => {
+    const startAutoplay = useCallback((delay = 10000) => {
       clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
         setCurrentIndex(idx => (idx + 1) % totalPeople);
       }, delay);
-    };
+    }, [totalPeople]);
 
     // Autoplay inicial
     useEffect(() => {
       startAutoplay();
       return () => clearInterval(timerRef.current);
-    }, [totalPeople]);
+    }, [totalPeople, startAutoplay]);
 
     // Cuando se selecciona una card, mostrar esa persona y resetear timer a 15s
     const handleSelect = idx => {
@@ -149,29 +148,5 @@ const SelectorSection = styled.div`
   @media (max-width: 768px) {
     flex: 1;
     height: 100%;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  gap: 20px;
-
-  @media (max-width: 1024px) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 50vw;
-    justify-items: center;
-    margin: 0 auto;
-    justify-content: center;
-    max-width: none;
-  }
-  @media (max-width: 600px) {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    align-items: center;
-    max-width: 100vw;
   }
 `;

@@ -1,6 +1,5 @@
 import '../../index.css';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Card3D from './card3D';
 import PersonSelector from './PersonSelector';
@@ -8,7 +7,6 @@ import GradientText from '../GradientText';
 
 import { 
   people, 
-  skills, 
   gradientColors, 
   animationConfig,
   getTotalPeople 
@@ -20,18 +18,18 @@ const Team = () => {
     const timerRef = useRef();
 
     // Función para iniciar el autoplay con un delay custom
-    const startAutoplay = (delay = 10000) => {
+    const startAutoplay = useCallback((delay = 10000) => {
       clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
         setCurrentIndex(idx => (idx + 1) % totalPeople);
       }, delay);
-    };
+    }, [totalPeople]);
 
     // Autoplay inicial
     useEffect(() => {
       startAutoplay();
       return () => clearInterval(timerRef.current);
-    }, [totalPeople]);
+    }, [totalPeople, startAutoplay]);
 
     // Cuando se selecciona una card, mostrar esa persona y resetear timer a 15s
     const handleSelect = idx => {

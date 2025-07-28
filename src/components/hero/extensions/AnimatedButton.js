@@ -1,6 +1,6 @@
 // components/AnimatedButton.js
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { Link as ScrollLink } from 'react-scroll';
 
 const AnimatedButton = ({ children = "Contáctanos", to, ...props }) => {
@@ -28,15 +28,6 @@ const AnimatedButton = ({ children = "Contáctanos", to, ...props }) => {
 };
 
 export default AnimatedButton;
-
-const gradientShift = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-`;
 
 const StyledScrollLink = styled(ScrollLink)`
   position: relative;

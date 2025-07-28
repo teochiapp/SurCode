@@ -1,10 +1,9 @@
 import '../../index.css';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { FaBolt, FaCode, FaPalette, FaLaptopCode, FaStar, FaAward, FaUsers, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { FaAward, FaUsers, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import GradientText from './../GradientText';
 import { 
-  getRoleConfig, 
   getPersonStats, 
   getPersonBio, 
   getPersonSkills, 
@@ -43,21 +42,7 @@ const PersonSelector = ({ people, currentIndex }) => {
 
     const person = people[currentIndex];
     if (!person) return null;
-    const getRoleIcon = (role) => {
-        switch (role?.toLowerCase()) {
-            case 'frontend':
-                return <FaCode />;
-            case 'fullstack':
-                return <FaLaptopCode />;
-            case 'ux/ui':
-            case 'designer':
-                return <FaPalette />;
-            default:
-                return <FaCode />;
-        }
-    };
 
-    const roleConfig = getRoleConfig(person.role);
     const personStats = getPersonStats(person);
     const personBio = getPersonBio(person);
     const personSkills = getPersonSkills(person);

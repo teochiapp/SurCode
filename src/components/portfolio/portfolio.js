@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -44,13 +44,13 @@ function Portfolio() {
     );
   }, []);
 
-  const nextProject = () => {
+  const nextProject = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setDirection('right');
     setCurrentIndex((prev) => (prev + 1) % projects.length);
     setTimeout(() => setIsAnimating(false), 600);
-  };
+  }, [isAnimating, projects.length]);
 
   const prevProject = () => {
     if (isAnimating) return;
@@ -77,7 +77,7 @@ function Portfolio() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAnimating]);
+  }, [isAnimating, nextProject]);
 
   const currentProject = {
     ...projects[currentIndex],
