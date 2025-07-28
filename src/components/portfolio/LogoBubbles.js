@@ -21,6 +21,7 @@ const LogoBubbles = ({ onProjectClick }) => {
             src={logo.src} 
             alt={logo.alt} 
             isSada={logo.alt === 'SADA'}
+            isJoycof={logo.alt === 'Joycof'}
           />
         </Bubble>
       ))}
@@ -76,6 +77,7 @@ const BubblesContainer = styled.div`
 const Bubble = styled.div`
   width: 100px;
   height: 100px;
+  padding: 5px;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--primary-cyan);
   border-radius: 50%;
@@ -122,5 +124,20 @@ const LogoImage = styled.img`
 
   ${Bubble}:hover & {
     filter: brightness(1.3);
+  }
+
+  /* Filtro blanco para Joycof en mobile */
+  @media (max-width: 767px) {
+    filter: ${props => props.isJoycof 
+      ? 'brightness(1.1) invert(1) brightness(2)' 
+      : 'brightness(1.1)'
+    };
+
+    ${Bubble}:hover & {
+      filter: ${props => props.isJoycof 
+        ? 'brightness(1.3) invert(1) brightness(2)' 
+        : 'brightness(1.3)'
+      };
+    }
   }
 `; 

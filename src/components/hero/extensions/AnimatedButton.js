@@ -59,7 +59,7 @@ const StyledScrollLink = styled(ScrollLink)`
 
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
-    padding: 12px 28px;
+    padding: 12px 36px;
     font-size: 14px;
     gap: 4px;
   }

@@ -54,9 +54,9 @@ function Header() {
   return (
     <HeaderContainer isScrolled={isScrolled}>
       {/* Sección 1: Logo */}
-      <LogoSection>
+      <LogoSection isScrolled={isScrolled}>
         <LogoLink to="/">
-          <LogoImg src="/logo.png" alt="Logo" />
+          <LogoImg src="/logo.png" alt="Logo" isScrolled={isScrolled} />
         </LogoLink>
       </LogoSection>
 
@@ -112,7 +112,7 @@ function Header() {
       </ContactSection>
 
       {/* Menú móvil */}
-      <MobileMenuIcon onClick={() => setIsOpen(!isOpen)}>
+      <MobileMenuIcon isScrolled={isScrolled} onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <FiX /> : <FiMenu />}
       </MobileMenuIcon>
 
@@ -136,11 +136,16 @@ function Header() {
               exit={{ x: "100%" }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
+              {/* Botón de cerrar */}
+              <SidebarCloseButton onClick={() => setIsOpen(false)}>
+                <FiX />
+              </SidebarCloseButton>
+
               {/* Logo en el sidebar */}
               <SidebarLogo>
-                <LogoLink to="/" onClick={() => setIsOpen(false)}>
-                  <LogoImg src="/logo.png" alt="Logo" />
-                </LogoLink>
+                <SidebarLogoLink to="/" onClick={() => setIsOpen(false)}>
+                  <SidebarLogoImg src="/logo.png" alt="Logo" />
+                </SidebarLogoLink>
               </SidebarLogo>
 
               {/* Menú de navegación */}
@@ -231,10 +236,8 @@ const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1500;
   background-color: transparent;
-  backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
-  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
   transition: all 0.3s ease;
 
   /* Tablet */
@@ -248,8 +251,6 @@ const HeaderContainer = styled.header`
   @media (max-width: 767px) {
     grid-template-columns: 1fr auto;
     justify-content: space-between;
-    backdrop-filter: ${props => props.isScrolled ? 'blur(8px)' : 'none'};
-    -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(8px)' : 'none'};
   }
 `;
 
@@ -257,6 +258,9 @@ const LogoSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  padding: 0.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 `;
 
 const LogoLink = styled(RouterLink)`
@@ -285,18 +289,28 @@ const LogoLink = styled(RouterLink)`
   }
 `;
 
+/* Logo específico para el Header principal */
 const LogoImg = styled.img`
   height: 100px;
+  width: 100px;
   object-fit: contain;
+  border-radius: 50%;
+  padding: 0.5rem;
+  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  transition: all 0.3s ease;
+  display: block;
 
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
     height: 80px;
+    width: 80px;
   }
 
   /* Mobile */
   @media (max-width: 767px) {
-    height: 70px;
+    height: 90px;
+    width: 90px;
   }
 `;
 
@@ -349,10 +363,18 @@ const MobileMenuIcon = styled.div`
   font-size: 1.8rem;
   cursor: pointer;
   color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
 
   /* Mobile */
   @media (max-width: 767px) {
-    display: block;
+    display: flex;
   }
 `;
 
@@ -363,18 +385,17 @@ const MobileOverlay = styled(motion.div)`
   width: 80vw;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  backdrop-filter: blur(2px);
+  z-index: 1600;
 `;
 
 const MobileSidebar = styled(motion.div)`
   position: fixed;
   top: 0;
   right: 0;
-  width: 80vw;
+  width: 65vw;
   height: 100%;
   background: var(--background-color);
-  z-index: 1000;
+  z-index: 1700;
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -382,12 +403,65 @@ const MobileSidebar = styled(motion.div)`
   overflow-y: auto;
 `;
 
+const SidebarCloseButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1701;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-color);
+    transform: rotate(90deg);
+  }
+
+  &:active {
+    transform: scale(0.95) rotate(90deg);
+  }
+`;
+
 const SidebarLogo = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+`;
+
+const SidebarLogoLink = styled(RouterLink)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
+
+const SidebarLogoImg = styled.img`
+  height: 120px;
+  object-fit: contain;
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    height: 140px;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    height: 130px;
+  }
 `;
 
 const SidebarNav = styled.nav`
@@ -403,7 +477,7 @@ const SidebarLink = styled(ScrollLink)`
   color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 600;
-  padding: 1rem 0;
+  padding: 0.3rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
   font-family: var(--heading-font);

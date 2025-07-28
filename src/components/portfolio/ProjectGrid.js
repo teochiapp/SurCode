@@ -33,7 +33,11 @@ const ProjectGrid = ({ projects, currentIndex, onProjectClick }) => {
             </>
           )}
           
-          <GridImage src={project.image} alt={project.title} />
+          <GridImage 
+            src={project.image} 
+            alt={project.title}
+            isJoycof={project.title.toLowerCase().includes('joycof')}
+          />
           <GridOverlay>
             <GridTitle>{project.title}</GridTitle>
             <GridTechs>
@@ -98,6 +102,14 @@ const GridImage = styled.img`
 
   ${GridItem}:hover & {
     transform: scale(1.1);
+  }
+
+  /* Filtro blanco para Joycof en mobile */
+  @media (max-width: 767px) {
+    filter: ${props => props.isJoycof 
+      ? 'invert(1) brightness(2)' 
+      : 'none'
+    };
   }
 `;
 

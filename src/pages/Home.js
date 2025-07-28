@@ -45,18 +45,18 @@ const Home = () => {
         </motion.div>
         
         <motion.div
-          ref={teamRef}
-          initial={{ opacity: 0, y: 80, scale: 0.92, rotateZ: -8 }}
-          animate={isTeamInView ? { opacity: 1, y: 0, scale: 1, rotateZ: 0 } : { opacity: 0, y: 80, scale: 0.92, rotateZ: -8 }}
-          transition={{ duration: 1, ease: "backOut" }}
+          ref={portfolioRef}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          animate={isPortfolioInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.95 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         >
         <Portfolio /> 
         </motion.div>
 
         <motion.div
-          ref={skillsRef}
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={isSkillsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.96 }}
+          ref={teamRef}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          animate={isTeamInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.95 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <TeamDesktopWrapper>
@@ -70,19 +70,19 @@ const Home = () => {
 
 
         <motion.div
-          ref={blogRef}
-          initial={{ opacity: 0, y: -50, rotateX: 15 }}
-          animate={isBlogInView ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: -50, rotateX: 15 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          ref={skillsRef}
+          initial={{ opacity: 0, y: 40, scale: 0.98 }}
+          animate={isSkillsInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.98 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
           <Skills />
         </motion.div>
         
         <motion.div
-          ref={portfolioRef}
-          initial={{ opacity: 0, y: 100, rotateY: 45 }}
-          animate={isPortfolioInView ? { opacity: 1, y: 0, rotateY: 0 } : { opacity: 0, y: 100, rotateY: 45 }}
-          transition={{ duration: 1.5, ease: "circOut" }}
+          ref={blogRef}
+          initial={{ opacity: 0, y: 60, scale: 0.96 }}
+          animate={isBlogInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 60, scale: 0.96 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <Blog />
         </motion.div>
