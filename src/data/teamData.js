@@ -22,7 +22,7 @@ export const people = [
   {
     name: "Teo Chiappero",
     surname: "Teo",
-    description: "Fullstack Developer",
+    description: "Frontend Developer",
     role: "Frontend",
     image: "team/Teo.png",
     fullImage: "team/TeoFull.jpg",
@@ -32,10 +32,10 @@ export const people = [
       linkedin: "https://www.linkedin.com/in/teo-chiappero/",
       instagram: "https://www.instagram.com/teochiappero/"
     },
-    bio: "Desarrollador apasionado por crear experiencias digitales excepcionales. Especializado en tecnologías modernas y diseño centrado en el usuario.",
+    bio: "Frontend Developer con perfil versátil y mentalidad resolutiva. Me especializo en construir interfaces modernas con React, y también tengo experiencia integrando backends en Node.js y bases de datos MySQL. Trabajo con WordPress para desarrollar soluciones ágiles y personalizadas. Valoro el código limpio, la usabilidad y el diseño funcional. Siempre busco aprender más y optimizar cada proyecto.",
     stats: {
       experience: "3+",
-      projects: "10+"
+      projects: "15+"
     }
   },
   {
