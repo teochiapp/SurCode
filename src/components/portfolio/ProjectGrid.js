@@ -17,7 +17,7 @@ const ProjectGrid = ({ projects, currentIndex, onProjectClick }) => {
       {projects.map((project, index) => (
         <GridItem
           key={index}
-          isActive={index === currentIndex}
+                      $isActive={index === currentIndex}
           onClick={() => onProjectClick(index)}
         >
           {/* Animación de lombriz */}
@@ -36,7 +36,7 @@ const ProjectGrid = ({ projects, currentIndex, onProjectClick }) => {
           <GridImage 
             src={project.image} 
             alt={project.title}
-            isJoycof={project.title.toLowerCase().includes('joycof')}
+                          $isJoycof={project.title.toLowerCase().includes('joycof')}
           />
           <GridOverlay>
             <GridTitle>{project.title}</GridTitle>
@@ -81,8 +81,8 @@ const GridItem = styled.div`
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-  transform: ${props => props.isActive ? 'scale(1.05)' : 'scale(1)'};
-  box-shadow: ${props => props.isActive ? '0 10px 30px rgba(13, 211, 250, 0.3)' : '0 5px 15px rgba(0, 0, 0, 0.2)'};
+  transform: ${props => props.$isActive ? 'scale(1.05)' : 'scale(1)'};
+  box-shadow: ${props => props.$isActive ? '0 10px 30px rgba(13, 211, 250, 0.3)' : '0 5px 15px rgba(0, 0, 0, 0.2)'};
 
   &:hover {
     transform: scale(1.05);
@@ -106,7 +106,7 @@ const GridImage = styled.img`
 
   /* Filtro blanco para Joycof en mobile */
   @media (max-width: 767px) {
-    filter: ${props => props.isJoycof 
+    filter: ${props => props.$isJoycof 
       ? 'invert(1) brightness(2)' 
       : 'none'
     };

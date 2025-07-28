@@ -10,8 +10,8 @@ const links = [
   { href: '#blog', label: 'Blog' },
 ];
 
-const FooterNav = ({ column = false, gap }) => (
-  <Nav column={column} gap={gap}>
+const FooterNav = ({ column = false, gap, ...otherProps }) => (
+  <Nav $column={column} $gap={gap}>
     {links.map(link => (
       <NavLink key={link.href} href={link.href}>{link.label}</NavLink>
     ))}
@@ -23,10 +23,10 @@ export default FooterNav;
 
 const Nav = styled.nav`
   display: flex;
-  gap: ${props => props.gap || '2.2rem'};
+  gap: ${props => props.$gap || '2.2rem'};
   padding: 0;
   z-index: 2;
-  flex-direction: ${props => props.column ? 'column' : 'row'};
+  flex-direction: ${props => props.$column ? 'column' : 'row'};
   align-items: left;
   @media (max-width: 900px) {
     gap: 1.2rem;

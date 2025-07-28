@@ -8,13 +8,13 @@ const PersonSelector = ({ people, currentIndex, onSelect }) => {
         {people.map((person, index) => (
           <PersonItem
             key={index}
-            isActive={index === currentIndex}
+            $isActive={index === currentIndex}
             onClick={() => onSelect(index)}
           >
             <PersonAvatar
               src={person.image}
               alt={person.name}
-              isActive={index === currentIndex}
+              $isActive={index === currentIndex}
             />
             <PersonName>{person.surname}</PersonName>
           </PersonItem>
@@ -54,8 +54,8 @@ const PersonItem = styled.div`
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: ${props => props.isActive ? 'rgba(var(--primary-color-rgb), 0.1)' : 'transparent'};
-  border: 2px solid ${props => props.isActive ? 'var(--secondary-color)' : 'transparent'};
+  background: ${props => props.$isActive ? 'rgba(var(--primary-color-rgb), 0.1)' : 'transparent'};
+  border: 2px solid ${props => props.$isActive ? 'var(--secondary-color)' : 'transparent'};
   
   &:hover {
     background: rgba(var(--primary-color-rgb), 0.05);
@@ -68,7 +68,7 @@ const PersonAvatar = styled.img`
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid ${props => props.isActive ? 'var(--secondary-color)' : 'transparent'};
+  border: 2px solid ${props => props.$isActive ? 'var(--secondary-color)' : 'transparent'};
   transition: all 0.3s ease;
   
   ${PersonItem}:hover & {

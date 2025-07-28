@@ -7,7 +7,7 @@ const FooterContact = () => {
   const contactInfo = [
     {
       icon: <FiMail />,
-      info: "surcodear@gmail.com"
+      info: "SurCodeAr@gmail.com"
     },
     {
       icon: <FiPhone />,

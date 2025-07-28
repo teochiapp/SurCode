@@ -14,14 +14,14 @@ const LogoBubbles = ({ onProjectClick }) => {
       {logos.map((logo, index) => (
         <Bubble 
           key={index} 
-          delay={index * 0.2}
+          $delay={index * 0.2}
           onClick={() => onProjectClick(logo.projectIndex)}
         >
           <LogoImage 
             src={logo.src} 
             alt={logo.alt} 
-            isSada={logo.alt === 'SADA'}
-            isJoycof={logo.alt === 'Joycof'}
+                          $isSada={logo.alt === 'SADA'}
+              $isJoycof={logo.alt === 'Joycof'}
           />
         </Bubble>
       ))}
@@ -89,8 +89,8 @@ const Bubble = styled.div`
     0 8px 20px rgba(13, 211, 250, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
   animation: 
-    ${fadeInScale} 0.6s ease-out ${props => props.delay}s both,
-    ${float} 3s ease-in-out infinite ${props => props.delay + 1}s;
+    ${fadeInScale} 0.6s ease-out ${props => props.$delay}s both,
+    ${float} 3s ease-in-out infinite ${props => props.$delay + 1}s;
   transition: all 0.3s ease;
   cursor: pointer;
   
@@ -142,8 +142,8 @@ const Bubble = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: ${props => props.isSada ? '85%' : '70%'};
-  height: ${props => props.isSada ? '85%' : '70%'};
+  width: ${props => props.$isSada ? '85%' : '70%'};
+  height: ${props => props.$isSada ? '85%' : '70%'};
   object-fit: contain;
   filter: brightness(1.1);
   transition: filter 0.3s ease;
@@ -157,14 +157,14 @@ const LogoImage = styled.img`
 
   /* Filtro blanco para Joycof en mobile */
   @media (max-width: 767px) {
-    filter: ${props => props.isJoycof 
+    filter: ${props => props.$isJoycof 
       ? 'brightness(1.1) invert(1) brightness(2)' 
       : 'brightness(1.1)'
     };
     
     /* Remover hover effects en móvil */
     ${Bubble}:hover & {
-      filter: ${props => props.isJoycof 
+      filter: ${props => props.$isJoycof 
         ? 'brightness(1.1) invert(1) brightness(2)' 
         : 'brightness(1.1)'
       };
@@ -172,7 +172,7 @@ const LogoImage = styled.img`
     
     /* Efecto de tap más sutil en móvil */
     ${Bubble}:active & {
-      filter: ${props => props.isJoycof 
+      filter: ${props => props.$isJoycof 
         ? 'brightness(1.2) invert(1) brightness(2)' 
         : 'brightness(1.2)'
       };

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaAward, FaUsers, FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import GradientText from './../GradientText';
+import { getSkillConfig } from '../../data/skillConfig';
 import { 
   getPersonStats, 
   getPersonBio, 
@@ -89,12 +90,20 @@ const PersonSelector = ({ people, currentIndex }) => {
                                 <span>Habilidades Principales</span>
                             </SkillsTitle>
                             <SkillsGrid>
-                                {personSkills.slice(0, 4).map((skill, index) => (
-                                    <SkillItem key={index}>
-                                        <FaAward />
-                                        <span>{skill}</span>
-                                    </SkillItem>
-                                ))}
+                                {personSkills.slice(0, 4).map((skill, index) => {
+                                    const skillConfig = getSkillConfig(skill);
+                                    const IconComponent = skillConfig ? skillConfig.icon : FaAward;
+                                    
+                                    return (
+                                        <SkillItem key={index}>
+                                            <IconComponent style={{ 
+                                                color: skillConfig ? skillConfig.color : 'var(--primary-cyan)',
+                                                fontSize: '0.75rem'
+                                            }} />
+                                            <span>{skillConfig ? skillConfig.label : skill}</span>
+                                        </SkillItem>
+                                    );
+                                })}
                             </SkillsGrid>
                         </SkillsSection>
                     )}
@@ -314,13 +323,15 @@ const SkillItem = styled.div`
   transition: all 0.2s ease;
 
   svg {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
+    min-width: 0.75rem;
   }
 
   &:hover {
     background: rgba(13, 211, 250, 0.2);
     border-color: var(--primary-cyan);
     transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(13, 211, 250, 0.3);
   }
 `;
 

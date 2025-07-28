@@ -1,5 +1,5 @@
-import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma } from 'react-icons/fa';
-import { SiMysql, SiAdobeillustrator, SiAdobephotoshop } from 'react-icons/si';
+import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma, FaJs, FaCss3Alt, FaGithub, FaUsers } from 'react-icons/fa';
+import { SiMysql, SiAdobeillustrator, SiAdobephotoshop, SiJavascript, SiCss3, SiMiro, SiAdobexd } from 'react-icons/si';
 
 export const SKILL_CONFIG = {
   'react': {
@@ -41,6 +41,51 @@ export const SKILL_CONFIG = {
     icon: SiAdobephotoshop,
     color: '#31A8FF',
     label: 'Photoshop'
+  },
+  'javascript': {
+    icon: SiJavascript,
+    color: '#F7DF1E',
+    label: 'JavaScript'
+  },
+  'js': {
+    icon: SiJavascript,
+    color: '#F7DF1E',
+    label: 'JavaScript'
+  },
+  'css': {
+    icon: SiCss3,
+    color: '#1572B6',
+    label: 'CSS'
+  },
+  'css3': {
+    icon: SiCss3,
+    color: '#1572B6',
+    label: 'CSS'
+  },
+  'prototyping': {
+    icon: FaFigma,
+    color: '#F24E1E',
+    label: 'Prototyping'
+  },
+  'user research': {
+    icon: FaUsers,
+    color: '#4A90E2',
+    label: 'User Research'
+  },
+  'miro': {
+    icon: SiMiro,
+    color: '#FFD02F',
+    label: 'Miro'
+  },
+  'adobe xd': {
+    icon: SiAdobexd,
+    color: '#FF61F6',
+    label: 'Adobe XD'
+  },
+  'xd': {
+    icon: SiAdobexd,
+    color: '#FF61F6',
+    label: 'Adobe XD'
   }
 };
 

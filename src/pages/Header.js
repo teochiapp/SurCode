@@ -52,16 +52,16 @@ function Header() {
   ];
 
   return (
-    <HeaderContainer isScrolled={isScrolled}>
+    <HeaderContainer $isScrolled={isScrolled}>
       {/* Sección 1: Logo */}
-      <LogoSection isScrolled={isScrolled}>
+      <LogoSection $isScrolled={isScrolled}>
         <LogoLink to="/">
-          <LogoImg src="/logo.png" alt="Logo" isScrolled={isScrolled} />
+          <LogoImg src="/logo.png" alt="Logo" $isScrolled={isScrolled} />
         </LogoLink>
       </LogoSection>
 
       {/* Sección 2: Menú de Navegación */}
-      <NavSection isScrolled={isScrolled}>
+      <NavSection $isScrolled={isScrolled}>
         <Nav>
           <StyledLink
             to="home"
@@ -112,7 +112,7 @@ function Header() {
       </ContactSection>
 
       {/* Menú móvil */}
-      <MobileMenuIcon isScrolled={isScrolled} onClick={() => setIsOpen(!isOpen)}>
+      <MobileMenuIcon $isScrolled={isScrolled} onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <FiX /> : <FiMenu />}
       </MobileMenuIcon>
 
@@ -228,7 +228,7 @@ export default Header;
 
 const HeaderContainer = styled.header`
   display: grid;
-  grid-template-columns: ${props => props.isScrolled ? '1fr 1fr' : '1fr 2fr 1fr'};
+  grid-template-columns: ${props => props.$isScrolled ? '1fr 1fr' : '1fr 2fr 1fr'};
   align-items: center;
   height: 80px;
   padding: 1rem 2rem;
@@ -242,7 +242,7 @@ const HeaderContainer = styled.header`
 
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
-    grid-template-columns: ${props => props.isScrolled ? '1fr 1fr' : '1fr 1.5fr 1fr'};
+    grid-template-columns: ${props => props.$isScrolled ? '1fr 1fr' : '1fr 1.5fr 1fr'};
     height: 70px;
     padding: 0.8rem 1.5rem;
   }
@@ -297,8 +297,8 @@ const LogoImg = styled.img`
   object-fit: contain;
   border-radius: 50%;
   padding: 0.5rem;
-  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
-  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  backdrop-filter: ${props => props.$isScrolled ? 'blur(15px)' : 'none'};
+  -webkit-backdrop-filter: ${props => props.$isScrolled ? 'blur(15px)' : 'none'};
   transition: all 0.3s ease;
   display: block;
 
@@ -316,14 +316,14 @@ const LogoImg = styled.img`
 `;
 
 const NavSection = styled.div`
-  display: ${props => props.isScrolled ? 'none' : 'flex'};
+  display: ${props => props.$isScrolled ? 'none' : 'flex'};
   justify-content: center;
   align-items: center;
   transition: opacity 0.3s ease;
 
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
-    display: ${props => props.isScrolled ? 'none' : 'flex'};
+    display: ${props => props.$isScrolled ? 'none' : 'flex'};
   }
 
   /* Mobile */
@@ -367,8 +367,8 @@ const MobileMenuIcon = styled.div`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
-  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(15px)' : 'none'};
+  backdrop-filter: ${props => props.$isScrolled ? 'blur(15px)' : 'none'};
+  -webkit-backdrop-filter: ${props => props.$isScrolled ? 'blur(15px)' : 'none'};
   transition: all 0.3s ease;
   align-items: center;
   justify-content: center;

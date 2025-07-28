@@ -24,7 +24,7 @@ const ProjectCard = ({ project, direction, isAnimating, onPrev, onNext, currentI
   }, []);
 
   return (
-    <Card direction={direction} isAnimating={isAnimating}>
+          <Card $direction={direction} $isAnimating={isAnimating}>
       {/* Animación de lombriz */}
       {showHorizontal ? (
         <>
@@ -70,7 +70,18 @@ const ProjectCard = ({ project, direction, isAnimating, onPrev, onNext, currentI
         </ProjectInfo>
       </CardContent>
 
-      {/* Controles de navegación en los laterales */}
+      {/* Puntos indicadores en la parte inferior */}
+      <ProjectDots>
+        {Array.from({ length: totalProjects }, (_, index) => (
+          <Dot
+            key={index}
+            $isActive={index === currentIndex}
+            onClick={() => onProjectClick(index)}
+          />
+        ))}
+      </ProjectDots>
+
+      {/* Controles de navegación en la parte inferior */}
       <NavButtonLeft onClick={onPrev} disabled={isAnimating}>
         <FaChevronLeft />
       </NavButtonLeft>
@@ -78,17 +89,6 @@ const ProjectCard = ({ project, direction, isAnimating, onPrev, onNext, currentI
       <NavButtonRight onClick={onNext} disabled={isAnimating}>
         <FaChevronRight />
       </NavButtonRight>
-
-      {/* Puntos indicadores en la parte inferior */}
-      <ProjectDots>
-        {Array.from({ length: totalProjects }, (_, index) => (
-          <Dot
-            key={index}
-            isActive={index === currentIndex}
-            onClick={() => onProjectClick(index)}
-          />
-        ))}
-      </ProjectDots>
     </Card>
   );
 };
@@ -109,7 +109,7 @@ const Card = styled.div`
   border: 1px solid rgba(13, 211, 250, 0.2);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: ${props => 
-    props.direction === 'right' ? slideInFromRight : slideInFromLeft
+    props.$direction === 'right' ? slideInFromRight : slideInFromLeft
   } 0.5s ease-out;
   animation-fill-mode: both;
 
@@ -317,7 +317,14 @@ const NavButtonLeft = styled.button`
     width: 40px;
     height: 40px;
     font-size: 1rem;
-    left: 0.5rem;
+    left: 1rem;
+    bottom: 0.5rem;
+    top: auto;
+    transform: none;
+    
+    &:hover:not(:disabled) {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -356,7 +363,14 @@ const NavButtonRight = styled.button`
     width: 40px;
     height: 40px;
     font-size: 1rem;
-    right: 0.5rem;
+    right: 1rem;
+    bottom: 0.5rem;
+    top: auto;
+    transform: none;
+    
+    &:hover:not(:disabled) {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -379,7 +393,7 @@ const Dot = styled.button`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: ${props => props.isActive ? 'var(--primary-cyan)' : 'rgba(13, 211, 250, 0.3)'};
+  background: ${props => props.$isActive ? 'var(--primary-cyan)' : 'rgba(13, 211, 250, 0.3)'};
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;

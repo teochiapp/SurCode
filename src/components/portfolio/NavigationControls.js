@@ -20,7 +20,7 @@ const NavigationControls = ({
         {Array.from({ length: totalProjects }, (_, index) => (
           <Dot
             key={index}
-            isActive={index === currentIndex}
+            $isActive={index === currentIndex}
             onClick={() => onProjectClick(index)}
           />
         ))}
@@ -94,7 +94,7 @@ const Dot = styled.button`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: ${props => props.isActive ? 'var(--primary-cyan)' : 'rgba(13, 211, 250, 0.3)'};
+  background: ${props => props.$isActive ? 'var(--primary-cyan)' : 'rgba(13, 211, 250, 0.3)'};
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;

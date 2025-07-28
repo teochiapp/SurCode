@@ -55,7 +55,7 @@ function Contact() {
     {
       icon: <FiMail />,
       title: "Email",
-      info: "surcodear@gmail.com",
+      info: "SurCodeAr@gmail.com",
       link: "mailto:surcodear@gmail.com"
     },
     {
