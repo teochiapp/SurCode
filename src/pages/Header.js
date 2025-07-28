@@ -232,13 +232,24 @@ const HeaderContainer = styled.header`
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: ${props => props.isScrolled ? 'transparent' : 'transparent'};
-  box-shadow: ${props => props.isScrolled ? 'none' : 'none'};
+  background-color: transparent;
+  backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
+  -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
   transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: ${props => props.isScrolled ? '1fr 1fr' : '1fr 1.5fr 1fr'};
+    height: 70px;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
     grid-template-columns: 1fr auto;
     justify-content: space-between;
+    backdrop-filter: ${props => props.isScrolled ? 'blur(8px)' : 'none'};
+    -webkit-backdrop-filter: ${props => props.isScrolled ? 'blur(8px)' : 'none'};
   }
 `;
 
@@ -258,11 +269,35 @@ const LogoLink = styled(RouterLink)`
   &:hover {
     transform: scale(1.05);
   }
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
 `;
 
 const LogoImg = styled.img`
   height: 100px;
   object-fit: contain;
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    height: 80px;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    height: 70px;
+  }
 `;
 
 const NavSection = styled.div`
@@ -271,7 +306,13 @@ const NavSection = styled.div`
   align-items: center;
   transition: opacity 0.3s ease;
 
-  @media (max-width: 768px) {
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    display: ${props => props.isScrolled ? 'none' : 'flex'};
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
     display: none;
   }
 `;
@@ -280,6 +321,11 @@ const Nav = styled.nav`
   display: flex;
   gap: 2rem;
   align-items: center;
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    gap: 1.2rem;
+  }
 `;
 
 const ContactSection = styled.div`
@@ -287,7 +333,19 @@ const ContactSection = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  @media (max-width: 768px) {
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    display: flex;
+    
+    /* Reducir el botón en tablet */
+    button, a {
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
     display: none;
   }
 `;
@@ -298,7 +356,8 @@ const MobileMenuIcon = styled.div`
   cursor: pointer;
   color: white;
 
-  @media (max-width: 768px) {
+  /* Mobile */
+  @media (max-width: 767px) {
     display: block;
   }
 `;
@@ -422,6 +481,13 @@ const StyledLink = styled(ScrollLink)`
   font-family: var(--heading-font);
   cursor: pointer;
 
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 0.9rem;
+  }
+
   &::before,
   &::after {
     content: "";
@@ -436,5 +502,11 @@ const StyledLink = styled(ScrollLink)`
     transition: opacity 0.35s, transform 0.35s;
     left: 0;
     right: 0;
+
+    /* Tablet */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      bottom: -0.4rem;
+      height: 0.2rem;
+    }
   }
 `;

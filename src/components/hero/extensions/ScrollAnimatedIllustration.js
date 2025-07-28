@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const ScrollAnimatedIllustration = () => {
   const { scrollY } = useScroll();
   
-  // Transformaciones basadas en scroll
+  // Transformaciones basadas en scroll para desktop
   const y1 = useTransform(scrollY, [0, 300], [0, -100]);
   const y2 = useTransform(scrollY, [0, 300], [0, 100]);
   const y3 = useTransform(scrollY, [0, 300], [0, -150]);
@@ -20,78 +20,111 @@ const ScrollAnimatedIllustration = () => {
   const circleOpacity = useTransform(scrollY, [0, 400], [0, 1]);
 
   return (
-    <motion.div
-      style={{ scale, opacity }}
-      transition={{ duration: 0.1 }}
-    >
-      <TechIllustration>
-        <motion.div 
-          className="floating-circle circle-1"
-          style={{ y: y1 }}
-        ></motion.div>
-        <motion.div 
-          className="floating-circle circle-2"
-          style={{ y: y2 }}
-        ></motion.div>
-        <motion.div 
-          className="floating-circle circle-3"
-          style={{ y: y3 }}
-        ></motion.div>
-        <motion.div 
-          className="connection-line line-1"
-          style={{ rotate }}
-        ></motion.div>
-        <motion.div 
-          className="connection-line line-2"
-          style={{ rotate: useTransform(scrollY, [0, 300], [0, -180]) }}
-        ></motion.div>
+    <>
+      {/* Versión animada para desktop */}
+      <DesktopVersion
+        style={{ scale, opacity }}
+        transition={{ duration: 0.1 }}
+      >
+        <TechIllustration>
+          <motion.div 
+            className="floating-circle circle-1"
+            style={{ y: y1 }}
+          ></motion.div>
+          <motion.div 
+            className="floating-circle circle-2"
+            style={{ y: y2 }}
+          ></motion.div>
+          <motion.div 
+            className="floating-circle circle-3"
+            style={{ y: y3 }}
+          ></motion.div>
+          <motion.div 
+            className="connection-line line-1"
+            style={{ rotate }}
+          ></motion.div>
+          <motion.div 
+            className="connection-line line-2"
+            style={{ rotate: useTransform(scrollY, [0, 300], [0, -180]) }}
+          ></motion.div>
+          
+          {/* Partículas adicionales que aparecen al hacer scroll */}
+          <motion.div
+            className="scroll-particle particle-1"
+            style={{ 
+              opacity: useTransform(scrollY, [0, 100], [0, 0.8]),
+              scale: useTransform(scrollY, [0, 100], [0, 1])
+            }}
+          ></motion.div>
+          <motion.div
+            className="scroll-particle particle-2"
+            style={{ 
+              opacity: useTransform(scrollY, [0, 150], [0, 0.6]),
+              scale: useTransform(scrollY, [0, 150], [0, 1])
+            }}
+          ></motion.div>
+          <motion.div
+            className="scroll-particle particle-3"
+            style={{ 
+              opacity: useTransform(scrollY, [0, 200], [0, 0.7]),
+              scale: useTransform(scrollY, [0, 200], [0, 1])
+            }}
+          ></motion.div>
+        </TechIllustration>
         
-        {/* Partículas adicionales que aparecen al hacer scroll */}
+        {/* Línea que sale del círculo hacia abajo */}
         <motion.div
-          className="scroll-particle particle-1"
+          className="scroll-line"
           style={{ 
-            opacity: useTransform(scrollY, [0, 100], [0, 0.8]),
-            scale: useTransform(scrollY, [0, 100], [0, 1])
+            height: lineHeight,
+            opacity: lineOpacity
           }}
-        ></motion.div>
+        />
+        
+        {/* Círculo final de la línea */}
         <motion.div
-          className="scroll-particle particle-2"
+          className="line-end-circle"
           style={{ 
-            opacity: useTransform(scrollY, [0, 150], [0, 0.6]),
-            scale: useTransform(scrollY, [0, 150], [0, 1])
+            y: circleY,
+            opacity: circleOpacity
           }}
-        ></motion.div>
-        <motion.div
-          className="scroll-particle particle-3"
-          style={{ 
-            opacity: useTransform(scrollY, [0, 200], [0, 0.7]),
-            scale: useTransform(scrollY, [0, 200], [0, 1])
-          }}
-        ></motion.div>
-      </TechIllustration>
-      
-      {/* Línea que sale del círculo hacia abajo */}
-      <motion.div
-        className="scroll-line"
-        style={{ 
-          height: lineHeight,
-          opacity: lineOpacity
-        }}
-      />
-      
-      {/* Círculo final de la línea */}
-      <motion.div
-        className="line-end-circle"
-        style={{ 
-          y: circleY,
-          opacity: circleOpacity
-        }}
-      />
-    </motion.div>
+        />
+      </DesktopVersion>
+
+      {/* Versión estática para mobile */}
+      <MobileVersion>
+        <TechIllustration>
+          <div className="floating-circle circle-1"></div>
+          <div className="floating-circle circle-2"></div>
+          <div className="floating-circle circle-3"></div>
+          <div className="connection-line line-1"></div>
+          <div className="connection-line line-2"></div>
+          
+          {/* Partículas estáticas */}
+          <div className="scroll-particle particle-1 static"></div>
+          <div className="scroll-particle particle-2 static"></div>
+          <div className="scroll-particle particle-3 static"></div>
+        </TechIllustration>
+      </MobileVersion>
+    </>
   );
 };
 
 export default ScrollAnimatedIllustration;
+
+// Versión para desktop (768px+)
+const DesktopVersion = styled(motion.div)`
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+// Versión para mobile (hasta 767px)
+const MobileVersion = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
 
 const TechIllustration = styled.div`
   position: relative;
@@ -225,8 +258,6 @@ const TechIllustration = styled.div`
     }
   }
   
-
-  
   /* Partículas que aparecen al hacer scroll */
   .scroll-particle {
     position: absolute;
@@ -234,6 +265,13 @@ const TechIllustration = styled.div`
     background: var(--accent-color);
     box-shadow: 0 0 15px rgba(83, 192, 210, 0.5);
     animation: sparkle 2s ease-in-out infinite;
+  }
+
+  /* Partículas estáticas para mobile */
+  .scroll-particle.static {
+    opacity: 0.7;
+    animation: sparkle 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(83, 192, 210, 0.4);
   }
   
   .particle-1 {
@@ -271,7 +309,7 @@ const TechIllustration = styled.div`
     }
   }
   
-  /* Línea que sale del círculo hacia abajo */
+  /* Línea que sale del círculo hacia abajo - solo desktop */
   .scroll-line {
     position: absolute;
     top: 50%;
@@ -297,7 +335,7 @@ const TechIllustration = styled.div`
     z-index: 10;
   }
   
-  /* Círculo final de la línea */
+  /* Círculo final de la línea - solo desktop */
   .line-end-circle {
     position: absolute;
     top: 50%;
@@ -311,5 +349,132 @@ const TechIllustration = styled.div`
       0 0 20px rgba(30, 221, 142, 0.8),
       0 0 10px rgba(83, 192, 210, 0.6);
     z-index: 11;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 350px;
+    height: 350px;
+    
+    &::before {
+      width: 250px;
+      height: 250px;
+    }
+    
+    &::after {
+      width: 170px;
+      height: 170px;
+    }
+
+    .circle-1, .circle-2, .circle-3 {
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .circle-1 {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .circle-2 {
+      width: 13px;
+      height: 13px;
+    }
+    
+    .circle-3 {
+      width: 22px;
+      height: 22px;
+    }
+
+    .line-1 {
+      width: 90px;
+    }
+    
+    .line-2 {
+      width: 70px;
+    }
+
+    .particle-1 {
+      width: 7px;
+      height: 7px;
+    }
+    
+    .particle-2 {
+      width: 5px;
+      height: 5px;
+    }
+    
+    .particle-3 {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    width: 300px;
+    height: 300px;
+    
+    &::before {
+      width: 200px;
+      height: 200px;
+    }
+    
+    &::after {
+      width: 150px;
+      height: 150px;
+    }
+
+    /* Simplificar animaciones en mobile */
+    &::before, &::after {
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.1;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 0.2;
+      }
+    }
+
+    .floating-circle {
+      animation: float 8s ease-in-out infinite;
+      box-shadow: 0 0 15px rgba(30, 221, 142, 0.3);
+    }
+
+    .floating-circle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(30, 221, 142, 0.5);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .connection-line {
+      animation: none;
+      box-shadow: none;
+    }
+
+    .scroll-particle.static {
+      @keyframes sparkle {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+      }
+    }
   }
 `; 

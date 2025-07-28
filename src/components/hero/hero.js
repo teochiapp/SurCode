@@ -99,6 +99,20 @@ const HeroWrapper = styled.section`
   overflow: hidden;
   padding: 2rem;
 
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    height: 90vh;
+    padding: 2.5rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    min-height: 100vh;
+    height: auto;
+    padding: 1rem;
+  }
+
+  /* Desktop Large */
   @media (min-width: 1024px) {
     padding: 4rem;
   }
@@ -115,10 +129,22 @@ const HeroContent = styled.div`
   max-width: 1200px;
   gap: 2rem;
 
-  @media (max-width: 768px) {
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: 1.8fr 1fr;
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
     grid-template-columns: 1fr;
     text-align: center;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 120px 0 30px 0;
   }
 `
 
@@ -132,6 +158,14 @@ const RippleBackground = styled.div`
   pointer-events: none;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+
+  @media (max-width: 767px) {
+    /* Mantener el mismo comportamiento que desktop */
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+  }
 `
 
 const HeroText = styled.div`
@@ -139,10 +173,16 @@ const HeroText = styled.div`
   color: white;
   z-index: 1;
   text-align: left;
+  width: 100%;
 
-  @media (max-width: 768px) {
-    text-align: center;
+  /* Mobile */
+  @media (max-width: 767px) {
     order: 2;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px;
   }
 `
 
@@ -159,6 +199,13 @@ const CustomDevTag = styled.span`
   background-clip: padding-box;
   position: relative;
   z-index: 1;
+  display: inline-block;
+  
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
   
   &::before {
     content: '';
@@ -205,20 +252,37 @@ const Title = styled.h3`
   font-size: 3rem;
   font-weight: 700;
   line-height: 1.2;
-  margin: 10px 0 15px !important;
+  margin: 10px 0 15px;
   padding: 0 !important;
-  text-align: left !important;
+  text-align: left;
+  width: 100%;
 
-  @media (min-width: 768px) {
-    font-size: 3.5rem;
-  }
-
+  /* Desktop Large */
   @media (min-width: 1024px) {
     font-size: 3.2rem;
   }
 
-  @media (max-width: 768px) {
-    text-align: center !important;
+  /* Desktop */
+  @media (min-width: 769px) and (max-width: 1023px) {
+    font-size: 2.4rem;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    font-size: 2.8rem;
+    line-height: 1.1;
+  }
+
+  /* Mobile Large */
+  @media (max-width: 767px) and (min-width: 480px) {
+    font-size: 2.5rem;
+    text-align: left;
+  }
+
+  /* Mobile */
+  @media (max-width: 479px) {
+    font-size: 1.8rem;
+    text-align: left;
   }
 `
 
@@ -230,8 +294,26 @@ const Subtitle = styled.p`
   margin-bottom: 2rem;
   max-width: 600px;
 
-  @media (max-width: 768px) {
-    text-align: center;
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    max-width: 500px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Mobile Large */
+  @media (max-width: 767px) and (min-width: 480px) {
+    font-size: 1.125rem;
+    text-align: left;
+    max-width: 100%;
+  }
+
+  /* Mobile */
+  @media (max-width: 479px) {
+    font-size: 1rem;
+    text-align: left;
+    max-width: 100%;
   }
 `
 
@@ -240,9 +322,19 @@ const HeroIllustration = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
   
-  @media (max-width: 768px) {
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    height: 400px;
+    width: 100%;
+  }
+  
+  /* Mobile */
+  @media (max-width: 767px) {
     order: 1;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    height: auto;
+    min-height: 200px;
   }
 `
