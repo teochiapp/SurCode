@@ -1,4 +1,4 @@
-import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma, FaJs, FaCss3Alt, FaGithub, FaUsers } from 'react-icons/fa';
+import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma, FaUsers } from 'react-icons/fa';
 import { SiMysql, SiAdobeillustrator, SiAdobephotoshop, SiJavascript, SiCss3, SiMiro, SiAdobexd } from 'react-icons/si';
 
 export const SKILL_CONFIG = {
