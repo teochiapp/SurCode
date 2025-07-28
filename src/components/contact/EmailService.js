@@ -2,21 +2,11 @@ import axios from 'axios';
 
 class EmailService {
   constructor() {
-    console.log('🔧 EmailService constructor llamado');
     this.apiKey = process.env.REACT_APP_BREVO_API_KEY;
     this.baseURL = 'https://api.brevo.com/v3';
-    
-    console.log('🔧 EmailService inicializado');
-    console.log('🔑 API Key:', this.apiKey ? 'Configurada' : 'NO CONFIGURADA');
-    console.log('📬 Email destinatario:', process.env.REACT_APP_RECIPIENT_EMAIL || 'NO CONFIGURADO');
-    console.log('🌐 Base URL:', this.baseURL);
   }
 
   async sendEmail(formData) {
-    console.log('🚀 Iniciando envío de email...');
-    console.log('📧 Datos del formulario:', formData);
-    console.log('🔑 API Key configurada:', this.apiKey ? 'SÍ' : 'NO');
-    console.log('📬 Email destinatario:', process.env.REACT_APP_RECIPIENT_EMAIL);
     
     try {
       const emailData = {
@@ -35,9 +25,6 @@ class EmailService {
         textContent: this.generateEmailText(formData)
       };
 
-      console.log('📤 Datos del email a enviar:', emailData);
-      console.log('🌐 URL de la API:', `${this.baseURL}/smtp/email`);
-
       const response = await axios.post(
         `${this.baseURL}/smtp/email`,
         emailData,
@@ -49,23 +36,12 @@ class EmailService {
         }
       );
 
-      console.log('✅ Email enviado exitosamente!');
-      console.log('📨 Respuesta de Brevo:', response.data);
-
       return {
         success: true,
         message: 'Email enviado correctamente',
         data: response.data
       };
     } catch (error) {
-      console.error('❌ Error enviando email:', error);
-      console.error('🔍 Detalles del error:', {
-        message: error.message,
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data
-      });
-      
       return {
         success: false,
         message: 'Error al enviar el email. Por favor, intenta nuevamente.',

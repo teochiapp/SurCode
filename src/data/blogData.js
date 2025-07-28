@@ -28,7 +28,7 @@ function UserComponent() {
       setUser(data);
       localStorage.setItem('token', data.token);
     } catch (error) {
-      console.error('Error:', error);
+      // Error handling
     }
   };
 
@@ -360,7 +360,7 @@ const ProductsContainer = () => {
         const adaptedProducts = productAdapter.adapt(rawData);
         setProducts(adaptedProducts);
       } catch (error) {
-        console.error('Error cargando productos:', error);
+        // Error handling
       } finally {
         setLoading(false);
       }

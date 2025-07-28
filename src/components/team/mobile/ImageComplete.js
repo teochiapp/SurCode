@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ImageComplete = ({ name, role, image, onClick, surname }) => {
-  console.log('ImageComplete props:', { name, role, image, surname });
   
   return (
     <ImageContainer onClick={onClick}>

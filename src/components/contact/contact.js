@@ -6,11 +6,6 @@ import GradientText from '../GradientText'
 import EmailService from './EmailService'
 
 function Contact() {
-  console.log('🎨 Componente Contact cargado');
-  console.log('🔑 Variables de entorno:', {
-    apiKey: process.env.REACT_APP_BREVO_API_KEY ? 'Configurada' : 'NO CONFIGURADA',
-    recipientEmail: process.env.REACT_APP_RECIPIENT_EMAIL || 'NO CONFIGURADO'
-  });
   
   const [formData, setFormData] = useState({
     name: '',
@@ -30,22 +25,15 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('🎯 Botón ENVIAR presionado');
-    console.log('📝 Datos del formulario a enviar:', formData);
     
     setIsSubmitting(true);
     
     try {
-      console.log('🔧 Creando instancia de EmailService...');
       const emailService = new EmailService();
       
-      console.log('📤 Llamando a sendEmail...');
       const result = await emailService.sendEmail(formData);
       
-      console.log('📊 Resultado del envío:', result);
-      
       if (result.success) {
-        console.log('✅ Email enviado con éxito!');
         setIsSubmitted(true);
         // Resetear formulario después de 3 segundos
         setTimeout(() => {
@@ -53,16 +41,12 @@ function Contact() {
           setFormData({ name: '', email: '', subject: '', message: '' });
         }, 3000);
       } else {
-        console.log('❌ Error en el envío:', result.message);
-        console.log('🔍 Detalles del error:', result.error);
         // Mostrar error si falla el envío
         alert(result.message);
       }
     } catch (error) {
-      console.error('💥 Error inesperado en el envío:', error);
       alert('Error al enviar el mensaje. Por favor, intenta nuevamente.');
     } finally {
-      console.log('🏁 Finalizando proceso de envío');
       setIsSubmitting(false);
     }
   };
