@@ -172,7 +172,8 @@ const ServiceCard = styled.div`
     min-height: 340px;
   }
   @media (max-width: 600px) {
-    padding: 1rem 0.5rem;
+    padding: 1rem 1.5rem;
+    margin: 0 20px;
     min-height: 260px;
   }
 `

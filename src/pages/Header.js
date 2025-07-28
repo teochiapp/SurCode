@@ -251,6 +251,7 @@ const HeaderContainer = styled.header`
   @media (max-width: 767px) {
     grid-template-columns: 1fr auto;
     justify-content: space-between;
+    padding: 0rem 2rem;
   }
 `;
 
