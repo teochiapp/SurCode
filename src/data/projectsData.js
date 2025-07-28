@@ -25,7 +25,7 @@ const cardsPortfolio = [
     title: 'NhEstetica',
     description: 'Sitio web profesional para centro de estética, con presentación de servicios, turnos online, galería de resultados y testimonios de clientes. Diseño moderno y enfoque en la confianza y el bienestar.',
     image: '/portfolio/nh.png',
-    url: 'https://nhestetica.com/',
+    url: 'http://ugks4ckw4gcoc4g8g000sgcw.31.97.83.15.sslip.io/',
     techs: [
       { name: 'React.js', icon: <FaReact color="#61DBFB" /> },
       { name: 'Node.js', icon: <FaNodeJs color="#3C873A" /> },
