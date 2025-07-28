@@ -55,14 +55,14 @@ function Contact() {
     {
       icon: <FiMail />,
       title: "Email",
-      info: "info@surcode.com",
-      link: "mailto:info@surcode.com"
+      info: "surcodear@gmail.com",
+      link: "mailto:surcodear@gmail.com"
     },
     {
       icon: <FiPhone />,
       title: "Teléfono",
-      info: "+54 11 1234-5678",
-      link: "tel:+541112345678"
+      info: "+54 11 5814 8683",
+      link: "tel:+541158148683"
     },
     {
       icon: <FiMapPin />,
