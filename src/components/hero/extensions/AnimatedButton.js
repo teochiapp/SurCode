@@ -4,17 +4,17 @@ import styled, { keyframes } from 'styled-components';
 import { Link as ScrollLink } from 'react-scroll';
 
 const AnimatedButton = ({ children = "Contáctanos", to, ...props }) => {
-  const handleClick = () => {
-    if (to) {
-      const element = document.getElementById(to.replace('#', ''));
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  // Limpiar el ID para react-scroll (quitar # si existe)
+  const targetId = to ? to.replace('#', '') : 'contact';
 
   return (
-    <Button onClick={handleClick} {...props}>
+    <StyledScrollLink
+      to={targetId}
+      smooth={true}
+      duration={500}
+      offset={-80} // Compensar por el header fijo
+      {...props}
+    >
       <svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
       </svg>
@@ -23,7 +23,7 @@ const AnimatedButton = ({ children = "Contáctanos", to, ...props }) => {
       <svg viewBox="0 0 24 24" className="arr-1" xmlns="http://www.w3.org/2000/svg">
         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
       </svg>
-    </Button>
+    </StyledScrollLink>
   );
 };
 
@@ -38,9 +38,9 @@ const gradientShift = keyframes`
   }
 `;
 
-const Button = styled.button`
+const StyledScrollLink = styled(ScrollLink)`
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 16px 36px;
@@ -55,6 +55,21 @@ const Button = styled.button`
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   font-family: var(--heading-font);
+  text-decoration: none;
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 12px 28px;
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    padding: 10px 24px;
+    font-size: 13px;
+    gap: 4px;
+  }
 
   svg {
     position: absolute;
@@ -62,10 +77,30 @@ const Button = styled.button`
     fill: var(--primary-color);
     z-index: 2;
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Tablet */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 20px;
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      width: 18px;
+    }
   }
 
   .arr-1 {
     right: 16px;
+
+    /* Tablet */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      right: 12px;
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      right: 10px;
+    }
   }
 
   .arr-2 {
@@ -91,6 +126,16 @@ const Button = styled.button`
     z-index: 2;
     transform: translateX(-12px);
     transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* Tablet */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      transform: translateX(-10px);
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      transform: translateX(-8px);
+    }
   }
 
   &:hover {
@@ -104,10 +149,30 @@ const Button = styled.button`
 
     .arr-2 {
       left: 16px;
+
+      /* Tablet */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        left: 12px;
+      }
+
+      /* Mobile */
+      @media (max-width: 767px) {
+        left: 10px;
+      }
     }
 
     .text {
       transform: translateX(12px);
+
+      /* Tablet */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        transform: translateX(10px);
+      }
+
+      /* Mobile */
+      @media (max-width: 767px) {
+        transform: translateX(8px);
+      }
     }
 
     svg {
@@ -119,6 +184,18 @@ const Button = styled.button`
       height: 220px;
       opacity: 1;
       background-color: var(--secondary-color);
+
+      /* Tablet */
+      @media (min-width: 768px) and (max-width: 1023px) {
+        width: 180px;
+        height: 180px;
+      }
+
+      /* Mobile */
+      @media (max-width: 767px) {
+        width: 150px;
+        height: 150px;
+      }
     }
   }
 

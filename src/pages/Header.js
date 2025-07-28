@@ -336,12 +336,6 @@ const ContactSection = styled.div`
   /* Tablet */
   @media (min-width: 768px) and (max-width: 1023px) {
     display: flex;
-    
-    /* Reducir el botón en tablet */
-    button, a {
-      font-size: 0.9rem;
-      padding: 0.6rem 1.2rem;
-    }
   }
 
   /* Mobile */

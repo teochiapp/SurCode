@@ -156,7 +156,7 @@ const CardContent = styled.div`
   color: var(--primary-white);
 
   @media (max-width: 768px) {
-    padding: 2rem;
+    padding: 1rem;
   }
 `;
 
@@ -201,7 +201,7 @@ const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   justify-content: center;
   align-items: center;
 `;
