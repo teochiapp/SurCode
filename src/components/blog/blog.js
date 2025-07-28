@@ -28,7 +28,7 @@ function Blog() {
         </GradientText>
       </SectionTitle>
       
-      <SectionSubtitle>Explorá los intereses y tendencias que inspiran a nuestro equipo</SectionSubtitle>
+      <SectionSubtitle>Exploramos las últimas tendencias y mejores prácticas en desarrollo tecnológico</SectionSubtitle>
       
       <BlogGrid>
         {blogPosts.slice(0, 3).map((post, index) => (

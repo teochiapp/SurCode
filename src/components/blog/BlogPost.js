@@ -27,7 +27,7 @@ function BlogPost() {
     <BlogPostContainer>
       <BackButton onClick={() => navigate('/')}>
         <FiArrowLeft />
-        Volver al blog
+        Volver al inicio
       </BackButton>
 
       <motion.div
@@ -111,6 +111,7 @@ const BackButton = styled.button`
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 500;
+  font-family: 'Space Grotesk', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
