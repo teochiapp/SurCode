@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GradientText from '../GradientText';
 import ProjectCard from './ProjectCard';
 import ProjectGrid from './ProjectGrid';
+import LogoBubbles from './LogoBubbles';
 import cardsPortfolio from '../../data/projectsData';
 
 // Registrar ScrollTrigger
@@ -112,11 +113,15 @@ function Portfolio() {
         </CarouselWrapper>
       </CarouselContainer>
 
-      <ProjectGrid
-        projects={projects}
-        currentIndex={currentIndex}
-        onProjectClick={goToProject}
-      />
+      <DesktopProjectGrid>
+        <ProjectGrid
+          projects={projects}
+          currentIndex={currentIndex}
+          onProjectClick={goToProject}
+        />
+      </DesktopProjectGrid>
+      
+      <LogoBubbles onProjectClick={goToProject} />
     </PortfolioContainer>
   );
 }
@@ -199,4 +204,10 @@ const CarouselWrapper = styled.div`
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+`;
+
+const DesktopProjectGrid = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;

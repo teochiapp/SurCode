@@ -34,7 +34,7 @@ const cardsPortfolio = [
   },
   {
     title: 'Sistema Aéreo de Detección Argentino',
-    description: 'S.A.D.A. nació para optimizar la detección y gestión de avistamientos de aeronaves no autorizadas en el espacio aéreo argentino. Durante la fase de conceptualización, se definieron requerimientos y protocolos seguros, creando una solución robusta y escalable.',
+    description: 'S.A.D.A nació para optimizar la detección y gestión de avistamientos de aeronaves no autorizadas en el espacio aéreo argentino. Se definieron requerimientos y protocolos seguros, creando una solución robusta y escalable.',
     image: '/portfolio/sada.png',
     techs: [
       { name: 'Node.js', icon: <FaNodeJs color="#3C873A" /> },
