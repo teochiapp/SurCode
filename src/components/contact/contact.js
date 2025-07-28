@@ -67,8 +67,12 @@ function Contact() {
     {
       icon: <FiMapPin />,
       title: "Ubicación",
-      info: "Buenos Aires, Argentina",
-      link: "https://maps.google.com"
+      info: "Buenos Aires, Argentina"
+    },    
+    {
+      icon: <FiMapPin />,
+      title: "Ubicación",
+      info: "Córdoba, Argentina"
     }
   ];
 
