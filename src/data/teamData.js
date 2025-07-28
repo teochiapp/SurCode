@@ -9,14 +9,14 @@ export const people = [
     fullImage: "team/ROMA.png",
     skills: ["Node.js", "Docker", "MySQL", "React"],
     social: {
-      github: "https://github.com/tomascejas",
-      linkedin: "https://linkedin.com/in/tomascejas",
-      instagram: "https://instagram.com/tomascejas"
+      github: "https://github.com/toto-rcv",
+      linkedin: "https://www.linkedin.com/in/tomas-cejas/",
+      instagram: "https://www.instagram.com/toto_rcv/"
     },
-    bio: "Desarrollador apasionado por crear experiencias digitales excepcionales. Especializado en tecnologías modernas y diseño centrado en el usuario.",
+    bio: "Profesional del desarrollo con experiencia en tecnologías actuales, comprometido con la construcción de productos digitales intuitivos y funcionales.",
     stats: {
       experience: "2+",
-      projects: "5+"
+      projects: "8+"
     }
   },
   {
@@ -28,9 +28,9 @@ export const people = [
     fullImage: "team/TeoFull.jpg",
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
-      github: "https://github.com/teochiappero",
-      linkedin: "https://linkedin.com/in/teochiappero",
-      instagram: "https://instagram.com/teochiappero"
+      github: "https://github.com/teochiapp",
+      linkedin: "https://www.linkedin.com/in/teo-chiappero/",
+      instagram: "https://www.instagram.com/teochiappero/"
     },
     bio: "Desarrollador apasionado por crear experiencias digitales excepcionales. Especializado en tecnologías modernas y diseño centrado en el usuario.",
     stats: {
@@ -45,35 +45,35 @@ export const people = [
     role: "UX/UI",
     image: "team/Jacky.png",
     fullImage: "team/Jacky.png",
-    skills: ["Figma", "Illustrator", "Photoshop", "Prototyping"],
+    skills: ["Figma", "Illustrator", "Photoshop", "Prototyping", "User Research", "Miro"],
     social: {
       github: "https://github.com/jacky",
-      linkedin: "https://linkedin.com/in/jacky",
-      instagram: "https://instagram.com/jacky"
+      linkedin: "https://www.linkedin.com/in/johana-jaqueline-vazquez-/",
+      instagram: "https://www.instagram.com/ja_cky.vaz/"
     },
     bio: "Diseñadora apasionada por crear experiencias digitales excepcionales. Especializada en tecnologías modernas y diseño centrado en el usuario.",
     stats: {
       experience: "4+",
-      projects: "60+"
+      projects: "15+"
     }
   },
   {
-    name: "Faustina",
-    surname: "Lud",
+    name: "Luzmila  ",
+    surname: "Luz",
     description: "UX/UI Designer",
     role: "UX/UI",
     image: "team/lu.png",
     fullImage: "team/lu.png",
-    skills: ["Figma", "Adobe XD", "Sketch", "User Research"],
+    skills: ["Figma", "Adobe XD", "Illustrator", "User Research", "Photoshop"],
     social: {
       github: "https://github.com/faustina",
-      linkedin: "https://linkedin.com/in/faustina",
-      instagram: "https://instagram.com/faustina"
+      linkedin: "https://www.linkedin.com/in/luzmilavazquez/",
+      instagram: "https://www.instagram.com/luzz_vazqz/"
     },
-    bio: "Diseñadora apasionada por crear experiencias digitales excepcionales. Especializada en tecnologías modernas y diseño centrado en el usuario.",
+    bio: "Diseñadora con sólida formación en experiencia de usuario y tecnologías modernas, dedicada a transformar ideas en productos digitales funcionales y atractivos.",
     stats: {
-      experience: "3+",
-      projects: "45+"
+      experience: "2+",
+      projects: "10+"
     }
   }
 ];

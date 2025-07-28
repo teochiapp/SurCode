@@ -159,7 +159,7 @@ const CardContainer = styled.div`
   }
 
 @media (max-width: 1300px) {
-    width: 260px;
+    width: 245px;
   }
   @media (max-width: 1024px) and (min-width: 601px) {
     width: 40vw;
