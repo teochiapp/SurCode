@@ -69,6 +69,15 @@ const SkillsTrack = styled.div`
     margin-left: 3rem;
   }
 
+  /* Mobile hasta 768px */
+  @media (max-width: 768px) {
+    gap: 1rem;
+    
+    span:first-child {
+      margin-left: 1rem;
+    }
+  }
+
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
