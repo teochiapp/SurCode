@@ -113,7 +113,7 @@ const HeroWrapper = styled.section`
 
   /* Desktop Large */
   @media (min-width: 1024px) {
-    padding: 4rem;
+    padding: 2rem;
   }
 `
 
