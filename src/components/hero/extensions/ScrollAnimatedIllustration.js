@@ -1,0 +1,524 @@
+import React from 'react';
+import styled from 'styled-components';
+import { motion, useScroll, useTransform } from 'framer-motion';
+
+const ScrollAnimatedIllustration = () => {
+  const { scrollY } = useScroll();
+  
+  // Transformaciones principales combinadas para mejor rendimiento
+  const mainTransforms = useTransform(scrollY, [0, 300], [0, 1]);
+  const lineTransforms = useTransform(scrollY, [0, 1500], [0, 1]);
+  
+  // Calcular valores derivados de manera eficiente
+  const y1 = useTransform(mainTransforms, [0, 1], [0, -100]);
+  const y2 = useTransform(mainTransforms, [0, 1], [0, 100]);
+  const y3 = useTransform(mainTransforms, [0, 1], [0, -150]);
+  const scale = useTransform(mainTransforms, [0, 1], [1, 0.8]);
+  const rotate = useTransform(mainTransforms, [0, 1], [0, 360]);
+  const opacity = useTransform(scrollY, [0, 200], [1, 0.3]);
+  
+  // Transformaciones de línea optimizadas
+  const lineHeight = useTransform(lineTransforms, [0, 1], [0, 1200]);
+  const lineOpacity = useTransform(mainTransforms, [0, 1], [0, 0.9]);
+  const circleY = useTransform(lineTransforms, [0, 1], [0, 1150]);
+  const circleOpacity = useTransform(scrollY, [0, 400], [0, 1]);
+
+  return (
+    <>
+      {/* Versión animada para desktop */}
+      <DesktopVersion
+        style={{ scale, opacity }}
+        transition={{ duration: 0.1 }}
+      >
+        <TechIllustration>
+          <motion.div 
+            className="floating-circle circle-1"
+            style={{ y: y1 }}
+          ></motion.div>
+          <motion.div 
+            className="floating-circle circle-2"
+            style={{ y: y2 }}
+          ></motion.div>
+          <motion.div 
+            className="floating-circle circle-3"
+            style={{ y: y3 }}
+          ></motion.div>
+          <motion.div 
+            className="connection-line line-1"
+            style={{ rotate }}
+          ></motion.div>
+          <motion.div 
+            className="connection-line line-2"
+            style={{ rotate: useTransform(rotate, [0, 360], [0, -180]) }}
+          ></motion.div>
+          
+          {/* Partículas optimizadas con menos transformaciones individuales */}
+          <motion.div
+            className="scroll-particle particle-1"
+            style={{ 
+              opacity: useTransform(mainTransforms, [0, 0.33], [0, 0.8]),
+              scale: useTransform(mainTransforms, [0, 0.33], [0, 1])
+            }}
+          ></motion.div>
+          <motion.div
+            className="scroll-particle particle-2"
+            style={{ 
+              opacity: useTransform(mainTransforms, [0, 0.5], [0, 0.6]),
+              scale: useTransform(mainTransforms, [0, 0.5], [0, 1])
+            }}
+          ></motion.div>
+          <motion.div
+            className="scroll-particle particle-3"
+            style={{ 
+              opacity: useTransform(mainTransforms, [0, 0.67], [0, 0.7]),
+              scale: useTransform(mainTransforms, [0, 0.67], [0, 1])
+            }}
+          ></motion.div>
+        </TechIllustration>
+        
+        {/* Línea que sale del círculo hacia abajo */}
+        <motion.div
+          className="scroll-line"
+          style={{ 
+            height: lineHeight,
+            opacity: lineOpacity
+          }}
+        />
+        
+        {/* Círculo final de la línea */}
+        <motion.div
+          className="line-end-circle"
+          style={{ 
+            y: circleY,
+            opacity: circleOpacity
+          }}
+        />
+      </DesktopVersion>
+
+      {/* Versión estática para mobile */}
+      <MobileVersion>
+        <TechIllustration>
+          <div className="floating-circle circle-1"></div>
+          <div className="floating-circle circle-2"></div>
+          <div className="floating-circle circle-3"></div>
+          <div className="connection-line line-1"></div>
+          <div className="connection-line line-2"></div>
+          
+          {/* Partículas estáticas */}
+          <div className="scroll-particle particle-1 static"></div>
+          <div className="scroll-particle particle-2 static"></div>
+          <div className="scroll-particle particle-3 static"></div>
+        </TechIllustration>
+      </MobileVersion>
+    </>
+  );
+};
+
+export default ScrollAnimatedIllustration;
+
+// Versión para desktop (768px+)
+const DesktopVersion = styled(motion.div)`
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
+
+// Versión para mobile (hasta 767px)
+const MobileVersion = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+const TechIllustration = styled.div`
+  position: relative;
+  width: 400px;
+  height: 400px;
+  will-change: transform;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: pulse 4s ease-in-out infinite;
+    filter: blur(1px);
+    will-change: transform, opacity;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: pulse 4s ease-in-out infinite 2s;
+    filter: blur(0.5px);
+    will-change: transform, opacity;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 0.25;
+    }
+  }
+  
+  /* Círculos flotantes optimizados */
+  .floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--primary-color);
+    opacity: 0.6;
+    animation: float 8s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(30, 221, 142, 0.3);
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+  
+  .floating-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(30, 221, 142, 0.5);
+  }
+  
+  .circle-1 {
+    width: 20px;
+    height: 20px;
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  
+  .circle-2 {
+    width: 15px;
+    height: 15px;
+    top: 70%;
+    right: 20%;
+    animation-delay: 2.67s;
+  }
+  
+  .circle-3 {
+    width: 25px;
+    height: 25px;
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 5.33s;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+  
+  /* Líneas de conexión optimizadas */
+  .connection-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    height: 2px;
+    opacity: 0.3;
+    animation: flow 5s linear infinite;
+    box-shadow: 0 0 8px rgba(30, 221, 142, 0.4);
+    border-radius: 1px;
+    will-change: opacity;
+  }
+  
+  .line-1 {
+    width: 100px;
+    top: 30%;
+    left: 10%;
+    transform: rotate(45deg);
+  }
+  
+  .line-2 {
+    width: 80px;
+    top: 60%;
+    right: 15%;
+    transform: rotate(-30deg);
+  }
+  
+  @keyframes flow {
+    0% {
+      opacity: 0.1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0.1;
+    }
+  }
+  
+  /* Partículas optimizadas */
+  .scroll-particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--accent-color);
+    box-shadow: 0 0 12px rgba(83, 192, 210, 0.5);
+    animation: sparkle 3s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  /* Partículas estáticas para mobile */
+  .scroll-particle.static {
+    opacity: 0.7;
+    animation: sparkle 4s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(83, 192, 210, 0.4);
+  }
+  
+  .particle-1 {
+    width: 8px;
+    height: 8px;
+    top: 15%;
+    right: 25%;
+    animation-delay: 0s;
+  }
+  
+  .particle-2 {
+    width: 6px;
+    height: 6px;
+    top: 75%;
+    left: 15%;
+    animation-delay: 1s;
+  }
+  
+  .particle-3 {
+    width: 10px;
+    height: 10px;
+    bottom: 30%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+  
+  @keyframes sparkle {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  /* Línea que sale del círculo hacia abajo - solo desktop */
+  .scroll-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, 
+      var(--primary-color) 0%, 
+      var(--primary-color) 20%, 
+      var(--accent-color) 40%, 
+      var(--secondary-color) 60%, 
+      rgba(83, 192, 210, 0.3) 80%, 
+      transparent 100%
+    );
+    width: 6px;
+    border-radius: 3px;
+    box-shadow: 
+      0 0 20px rgba(30, 221, 142, 0.8),
+      0 0 12px rgba(83, 192, 210, 0.5),
+      0 0 6px rgba(30, 221, 142, 0.3);
+    transform-origin: top;
+    transition: all 0.1s ease;
+    filter: blur(0.3px);
+    z-index: 10;
+    will-change: height, opacity;
+  }
+  
+  /* Círculo final de la línea - solo desktop */
+  .line-end-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 
+      0 0 15px rgba(30, 221, 142, 0.7),
+      0 0 8px rgba(83, 192, 210, 0.5);
+    z-index: 11;
+    will-change: transform, opacity;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 350px;
+    height: 350px;
+    
+    &::before {
+      width: 250px;
+      height: 250px;
+    }
+    
+    &::after {
+      width: 170px;
+      height: 170px;
+    }
+
+    .circle-1, .circle-2, .circle-3 {
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .circle-1 {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .circle-2 {
+      width: 13px;
+      height: 13px;
+    }
+    
+    .circle-3 {
+      width: 22px;
+      height: 22px;
+    }
+
+    .line-1 {
+      width: 90px;
+    }
+    
+    .line-2 {
+      width: 70px;
+    }
+
+    .particle-1 {
+      width: 7px;
+      height: 7px;
+    }
+    
+    .particle-2 {
+      width: 5px;
+      height: 5px;
+    }
+    
+    .particle-3 {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* Mobile optimizado para rendimiento */
+  @media (max-width: 767px) {
+    width: 280px;
+    height: 280px;
+    
+    &::before {
+      width: 180px;
+      height: 180px;
+    }
+    
+    &::after {
+      width: 130px;
+      height: 130px;
+    }
+
+    /* Simplificar animaciones en mobile para mejor rendimiento */
+    &::before, &::after {
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.08;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.03);
+        opacity: 0.15;
+      }
+    }
+
+    .floating-circle {
+      animation: float 12s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(30, 221, 142, 0.25);
+    }
+
+    .floating-circle:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(30, 221, 142, 0.4);
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .connection-line {
+      animation: none;
+      opacity: 0.2;
+      box-shadow: none;
+    }
+
+    .scroll-particle.static {
+      @keyframes sparkle {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 0.8;
+        }
+      }
+    }
+
+    /* Reducir tamaños para mobile */
+    .circle-1 {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .circle-2 {
+      width: 12px;
+      height: 12px;
+    }
+    
+    .circle-3 {
+      width: 18px;
+      height: 18px;
+    }
+
+    .particle-1 {
+      width: 6px;
+      height: 6px;
+    }
+    
+    .particle-2 {
+      width: 4px;
+      height: 4px;
+    }
+    
+    .particle-3 {
+      width: 7px;
+      height: 7px;
+    }
+  }
+`; 
