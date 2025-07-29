@@ -1,53 +1,54 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef, useMemo } from 'react';
 import { useInView } from 'framer-motion';
 
-// Función throttle simple para no depender de lodash
+// Función throttle optimizada sin warnings
 const throttle = (func, limit) => {
   let inThrottle;
-  return function() {
-    const args = arguments;
-    const context = this;
+  return function(...args) {
     if (!inThrottle) {
-      func.apply(context, args);
+      func.apply(this, args);
       inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+      setTimeout(() => { inThrottle = false; }, limit);
     }
-  }
+  };
 };
 
 export const useScrollOptimization = () => {
+  const scrollTimerRef = useRef(null);
+  const tickingRef = useRef(false);
+
   const handleScrollStart = useCallback(() => {
     document.body.classList.add('scrolling');
     // Pausar animaciones complejas durante scroll activo
     document.body.style.setProperty('--scroll-active', '1');
   }, []);
 
-  const handleScrollEnd = useCallback(
-    throttle(() => {
-      document.body.classList.remove('scrolling');
-      // Reactivar animaciones cuando termine el scroll
-      document.body.style.setProperty('--scroll-active', '0');
-    }, 100),
-    []
+  const handleScrollEnd = useCallback(() => {
+    document.body.classList.remove('scrolling');
+    // Reactivar animaciones cuando termine el scroll
+    document.body.style.setProperty('--scroll-active', '0');
+  }, []);
+
+  // Usar useMemo para crear la función throttled una sola vez
+  const throttledScrollEnd = useMemo(
+    () => throttle(handleScrollEnd, 100),
+    [handleScrollEnd]
   );
 
   useEffect(() => {
-    let scrollTimer = null;
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
+      if (!tickingRef.current) {
         requestAnimationFrame(() => {
           handleScrollStart();
           
-          clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(() => {
-            handleScrollEnd();
+          clearTimeout(scrollTimerRef.current);
+          scrollTimerRef.current = setTimeout(() => {
+            throttledScrollEnd();
           }, 100);
           
-          ticking = false;
+          tickingRef.current = false;
         });
-        ticking = true;
+        tickingRef.current = true;
       }
     };
 
@@ -56,19 +57,19 @@ export const useScrollOptimization = () => {
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimer);
+      clearTimeout(scrollTimerRef.current);
     };
-  }, [handleScrollStart, handleScrollEnd]);
+  }, [handleScrollStart, throttledScrollEnd]);
 };
 
 // Hook para optimizar useInView
 export const useOptimizedInView = (ref, options = {}) => {
-  const defaultOptions = {
+  const defaultOptions = useMemo(() => ({
     once: true,
     margin: "-100px",
     amount: 0.1, // Reducir el threshold para activar antes
     ...options
-  };
+  }), [options]);
 
   return useInView(ref, defaultOptions);
 }; 
