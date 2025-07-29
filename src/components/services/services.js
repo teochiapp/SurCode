@@ -124,6 +124,7 @@ const SectionSubtitle = styled.p`
   margin-bottom: 3rem;
   text-align: center;
   max-width: 600px;
+  padding: 0 1rem;
 
   @media (max-width: 600px) {
     font-size: 1rem;

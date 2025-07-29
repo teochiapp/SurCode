@@ -54,6 +54,7 @@ const Home = () => {
         </motion.div>
 
         <motion.div
+          id="team"
           ref={teamRef}
           initial={{ opacity: 0, y: 40 }}
           animate={isTeamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}

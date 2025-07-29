@@ -32,7 +32,7 @@ export const people = [
       linkedin: "https://www.linkedin.com/in/teo-chiappero/",
       instagram: "https://www.instagram.com/teochiappero/"
     },
-    bio: "Frontend Developer con perfil versátil y mentalidad resolutiva. Me especializo en interfaces modernas con React, con experiencia en backends Node.js, MySQL y WordPress. Valoro el código limpio, la usabilidad y el diseño funcional. Siempre busco aprender y optimizar cada proyecto.",
+    bio: "Perfil versátil y mentalidad resolutiva. Me especializo en interfaces modernas con React, con experiencia en backends Node.js, MySQL y WordPress. Valoro el código limpio, la usabilidad y el diseño funcional. Siempre busco aprender y optimizar cada proyecto.",
     stats: {
       experience: "3+",
       projects: "15+"

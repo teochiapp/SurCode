@@ -45,6 +45,15 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
+  /* Mejorar scroll en móvil */
+  -webkit-overflow-scrolling: touch;
+  /* Ocultar scrollbars en móvil */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Webkit browsers */
 }
 
 body {
@@ -58,11 +67,74 @@ body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
+  /* Mejorar scroll en móvil */
+  -webkit-overflow-scrolling: touch;
+  /* Ocultar scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Webkit browsers */
 }
 
 #root {
   width: 100%;
   overflow-x: hidden;
+  /* Mejorar scroll en móvil */
+  -webkit-overflow-scrolling: touch;
+  /* Ocultar scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#root::-webkit-scrollbar {
+  display: none; /* Webkit browsers */
+}
+
+/* Prevenir scrollbars en todos los elementos */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Webkit browsers */
+}
+
+/* ========== Mejoras para scroll móvil ========== */
+@media (max-width: 768px) {
+  html, body {
+    /* Mejor momentum scrolling en iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Prevenir rebote en scroll */
+    overscroll-behavior: none;
+    /* Suavizar scroll en todos los navegadores móviles */
+    scroll-behavior: auto; /* Desactivar smooth scroll en móvil por performance */
+  }
+  
+  /* Mejor comportamiento táctil */
+  * {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Asegurar que no aparezcan scrollbars */
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Optimizar todos los contenedores con scroll */
+  *[style*="overflow"] {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  *[style*="overflow"]::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ========== Elementos globales ========== */

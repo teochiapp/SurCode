@@ -42,7 +42,7 @@ const Team = () => {
     };
 
     return (
-     <TeamContainer id="team"> 
+     <TeamContainer> 
         <SectionTitle>
           <GradientText
             colors={gradientColors}

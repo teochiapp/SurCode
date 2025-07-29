@@ -55,7 +55,7 @@ function Header() {
     <HeaderContainer $isScrolled={isScrolled}>
       {/* Sección 1: Logo */}
       <LogoSection $isScrolled={isScrolled}>
-        <LogoLink to="/">
+        <LogoLink to="home" smooth={true} duration={500}>
           <LogoImg src="/logo.png" alt="Logo" $isScrolled={isScrolled} />
         </LogoLink>
       </LogoSection>
@@ -143,7 +143,7 @@ function Header() {
 
               {/* Logo en el sidebar */}
               <SidebarLogo>
-                <SidebarLogoLink to="/" onClick={() => setIsOpen(false)}>
+                <SidebarLogoLink to="home" smooth={true} duration={500} onClick={() => setTimeout(() => setIsOpen(false), 100)}>
                   <SidebarLogoImg src="/logo.png" alt="Logo" />
                 </SidebarLogoLink>
               </SidebarLogo>
@@ -154,7 +154,7 @@ function Header() {
                   to="home"
                   smooth={true}
                   duration={500}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
                 >
                   Inicio
                 </SidebarLink>
@@ -162,7 +162,7 @@ function Header() {
                   to="services"
                   smooth={true}
                   duration={500}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
                 >
                   Servicios
                 </SidebarLink>
@@ -170,7 +170,7 @@ function Header() {
                   to="team"
                   smooth={true}
                   duration={500}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
                 >
                   Equipo
                 </SidebarLink>
@@ -178,7 +178,7 @@ function Header() {
                   to="portfolio"
                   smooth={true}
                   duration={500}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
                 >
                   Proyectos
                 </SidebarLink>
@@ -186,7 +186,7 @@ function Header() {
                   to="contact"
                   smooth={true}
                   duration={500}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => setTimeout(() => setIsOpen(false), 100)}
                 >
                   Contacto
                 </SidebarLink>
@@ -194,7 +194,7 @@ function Header() {
 
               {/* Botón de contacto */}
               <SidebarContact>
-                <AnimatedButton to="#contact" onClick={() => setIsOpen(false)}>
+                <AnimatedButton to="#contact" onClick={() => setTimeout(() => setIsOpen(false), 100)}>
                   Contactanos!
                 </AnimatedButton>
               </SidebarContact>
@@ -264,7 +264,7 @@ const LogoSection = styled.div`
   transition: all 0.3s ease;
 `;
 
-const LogoLink = styled(RouterLink)`
+const LogoLink = styled(ScrollLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -402,6 +402,15 @@ const MobileSidebar = styled(motion.div)`
   padding: 2rem;
   box-shadow: -2px 0 20px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
+  
+  /* Ocultar scrollbars del sidebar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling en iOS */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Webkit browsers */
+  }
 `;
 
 const SidebarCloseButton = styled.button`
@@ -438,7 +447,7 @@ const SidebarLogo = styled.div`
   margin-bottom: 1rem;
 `;
 
-const SidebarLogoLink = styled(RouterLink)`
+const SidebarLogoLink = styled(ScrollLink)`
   display: flex;
   align-items: center;
   text-decoration: none;
