@@ -1,58 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const ProjectGrid = ({ projects, currentIndex, onProjectClick }) => {
   const [showHorizontal, setShowHorizontal] = useState(true);
 
-  // Alternar animación cada 1 segundo
+  // Alternar animación cada 1 segundo con cleanup mejorado
   useEffect(() => {
     const interval = setInterval(() => {
       setShowHorizontal((prev) => !prev);
     }, 1000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
-  return (
-    <GridContainer>
-      {projects.map((project, index) => (
-        <GridItem
-          key={index}
-                      $isActive={index === currentIndex}
-          onClick={() => onProjectClick(index)}
-        >
-          {/* Animación de lombriz */}
+  // Memoizar el handler para evitar re-renders innecesarios
+  const handleProjectClick = useCallback((index) => {
+    if (onProjectClick && typeof onProjectClick === 'function') {
+      onProjectClick(index);
+    }
+  }, [onProjectClick]);
+
+  // Memoizar la lista de proyectos renderizada
+  const renderedProjects = useMemo(() => {
+    if (!projects || !Array.isArray(projects)) {
+      return null;
+    }
+
+    return projects.map((project, index) => (
+      <GridItem
+        key={`project-${index}-${project.id || project.title}`}
+        $isActive={index === currentIndex}
+        onClick={() => handleProjectClick(index)}
+      >
+        {/* Animación de lombriz con keys estables */}
+        <BorderContainer key={`borders-${showHorizontal ? 'horizontal' : 'vertical'}`}>
           {showHorizontal ? (
             <>
-              <GridTopBorder />
-              <GridBottomBorder />
+              <GridTopBorder key="top-border" />
+              <GridBottomBorder key="bottom-border" />
             </>
           ) : (
             <>
-              <GridLeftBorder />
-              <GridRightBorder />
+              <GridLeftBorder key="left-border" />
+              <GridRightBorder key="right-border" />
             </>
           )}
-          
-          <GridImage 
-            src={project.image} 
-            alt={project.title}
-                          $isJoycof={project.title.toLowerCase().includes('joycof')}
-          />
-          <GridOverlay>
-            <GridTitle>{project.title}</GridTitle>
-            <GridTechs>
-              {project.techs && project.techs.slice(0, 3).map((tech, techIndex) => (
-                <GridTech key={techIndex}>{tech.icon}</GridTech>
-              ))}
-            </GridTechs>
-          </GridOverlay>
-        </GridItem>
-      ))}
+        </BorderContainer>
+        
+        <GridImage 
+          src={project.image} 
+          alt={project.title}
+          $isJoycof={project.title?.toLowerCase().includes('joycof')}
+          loading="lazy"
+        />
+        <GridOverlay>
+          <GridTitle>{project.title}</GridTitle>
+          <GridTechs>
+            {project.techs && project.techs.slice(0, 3).map((tech, techIndex) => (
+              <GridTech key={`tech-${techIndex}-${tech.name || techIndex}`}>
+                {tech.icon}
+              </GridTech>
+            ))}
+          </GridTechs>
+        </GridOverlay>
+      </GridItem>
+    ));
+  }, [projects, currentIndex, showHorizontal, handleProjectClick]);
+
+  if (!projects || projects.length === 0) {
+    return <GridContainer>No hay proyectos disponibles.</GridContainer>;
+  }
+
+  return (
+    <GridContainer>
+      {renderedProjects}
     </GridContainer>
   );
 };
 
-export default ProjectGrid;
+export default React.memo(ProjectGrid);
 
 // Styled Components
 const GridContainer = styled.div`
@@ -149,6 +177,17 @@ const GridTechs = styled.div`
 const GridTech = styled.div`
   color: var(--primary-cyan);
   font-size: 1.2rem;
+`;
+
+// Contenedor para bordes animados
+const BorderContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10;
 `;
 
 // Animaciones de lombriz para los bordes del grid

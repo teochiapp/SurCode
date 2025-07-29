@@ -6,6 +6,8 @@ import GradientText from '../GradientText';
 import ProjectCard from './ProjectCard';
 import ProjectGrid from './ProjectGrid';
 import LogoBubbles from './LogoBubbles';
+import ErrorBoundary from '../ErrorBoundary';
+import useScrollTrigger from '../../hooks/useScrollTrigger';
 import cardsPortfolio from '../../data/projectsData';
 
 // Registrar ScrollTrigger
@@ -24,25 +26,33 @@ function Portfolio() {
   const containerRef = useRef(null);
   const carouselRef = useRef(null);
   const projects = cardsPortfolio;
+  const { createScrollTrigger } = useScrollTrigger();
 
   useEffect(() => {
-    // Animación de entrada del contenedor
-    gsap.fromTo(containerRef.current,
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
+    // Crear animación solo si el elemento existe
+    if (containerRef.current) {
+      // Animación de entrada del contenedor
+      createScrollTrigger({
+        trigger: containerRef.current,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+        onToggle: self => {
+          if (self.isActive && containerRef.current) {
+            gsap.fromTo(containerRef.current,
+              { opacity: 0, y: 50 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
+              }
+            );
+          }
         }
-      }
-    );
-  }, []);
+      });
+    }
+  }, [createScrollTrigger]);
 
   const nextProject = useCallback(() => {
     if (isAnimating) return;
@@ -52,21 +62,21 @@ function Portfolio() {
     setTimeout(() => setIsAnimating(false), 600);
   }, [isAnimating, projects.length]);
 
-  const prevProject = () => {
+  const prevProject = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setDirection('left');
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
     setTimeout(() => setIsAnimating(false), 600);
-  };
+  }, [isAnimating, projects.length]);
 
-  const goToProject = (index) => {
+  const goToProject = useCallback((index) => {
     if (isAnimating || index === currentIndex) return;
     setIsAnimating(true);
     setDirection(index > currentIndex ? 'right' : 'left');
     setCurrentIndex(index);
     setTimeout(() => setIsAnimating(false), 600);
-  };
+  }, [isAnimating, currentIndex]);
 
   // Auto-play con pausa en hover
   useEffect(() => {
@@ -85,44 +95,54 @@ function Portfolio() {
   };
 
   return (
-    <PortfolioContainer ref={containerRef} id="portfolio">
-      <HeaderSection>
-          <GradientText
-            colors={["var(--text-color)", "var(--primary-color)", "var(--primary-cyan)", "var(--accent-color)", "var(--text-color)"]}
-          animationSpeed={3}
-            showBorder={false}
-        >
-          <MainTitle>Nuestros Proyectos</MainTitle>
-        </GradientText>
-        <Subtitle>Soluciones digitales que transforman ideas en experiencias únicas</Subtitle>
-      </HeaderSection>
+    <ErrorBoundary>
+      <PortfolioContainer ref={containerRef} id="portfolio">
+        <HeaderSection>
+          <ErrorBoundary>
+            <GradientText
+              colors={["var(--text-color)", "var(--primary-color)", "var(--primary-cyan)", "var(--accent-color)", "var(--text-color)"]}
+              animationSpeed={3}
+              showBorder={false}
+            >
+              <MainTitle>Nuestros Proyectos</MainTitle>
+            </GradientText>
+          </ErrorBoundary>
+          <Subtitle>Soluciones digitales que transforman ideas en experiencias únicas</Subtitle>
+        </HeaderSection>
 
-      <CarouselContainer>
-        <CarouselWrapper ref={carouselRef}>
-          <ProjectCard
-            key={`project-${currentIndex}-${direction}`}
-            project={currentProject}
-            direction={direction}
-            isAnimating={isAnimating}
-            onPrev={prevProject}
-            onNext={nextProject}
-            onProjectClick={goToProject}
-            currentIndex={currentIndex}
-            totalProjects={projects.length}
-          />
-        </CarouselWrapper>
-      </CarouselContainer>
+        <CarouselContainer>
+          <CarouselWrapper ref={carouselRef}>
+            <ErrorBoundary>
+              <ProjectCard
+                key={`project-${currentIndex}-${direction}`}
+                project={currentProject}
+                direction={direction}
+                isAnimating={isAnimating}
+                onPrev={prevProject}
+                onNext={nextProject}
+                onProjectClick={goToProject}
+                currentIndex={currentIndex}
+                totalProjects={projects.length}
+              />
+            </ErrorBoundary>
+          </CarouselWrapper>
+        </CarouselContainer>
 
-      <DesktopProjectGrid>
-        <ProjectGrid
-          projects={projects}
-          currentIndex={currentIndex}
-          onProjectClick={goToProject}
-        />
-      </DesktopProjectGrid>
-      
-      <LogoBubbles onProjectClick={goToProject} />
-    </PortfolioContainer>
+        <DesktopProjectGrid>
+          <ErrorBoundary>
+            <ProjectGrid
+              projects={projects}
+              currentIndex={currentIndex}
+              onProjectClick={goToProject}
+            />
+          </ErrorBoundary>
+        </DesktopProjectGrid>
+        
+        <ErrorBoundary>
+          <LogoBubbles onProjectClick={goToProject} />
+        </ErrorBoundary>
+      </PortfolioContainer>
+    </ErrorBoundary>
   );
 }
 
