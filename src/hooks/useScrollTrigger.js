@@ -1,27 +1,61 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export const useScrollTrigger = () => {
   const triggersRef = useRef([]);
+  const isCleanedUpRef = useRef(false);
 
-  const createScrollTrigger = (config) => {
+  const createScrollTrigger = useCallback((config) => {
+    // Si ya se limpiaron los triggers, no crear nuevos
+    if (isCleanedUpRef.current) {
+      return null;
+    }
+
     try {
-      // Validar que el elemento trigger existe
-      if (config.trigger && !config.trigger.isConnected) {
-        console.warn('ScrollTrigger: trigger element is not connected to DOM');
+      // Validar que el elemento trigger existe y está conectado al DOM
+      if (!config.trigger) {
+        console.warn('ScrollTrigger: no trigger element provided');
         return null;
       }
 
-      const trigger = ScrollTrigger.create(config);
-      triggersRef.current.push(trigger);
-      return trigger;
+      // Esperar un frame para asegurar que el elemento esté completamente montado
+      return new Promise((resolve) => {
+        requestAnimationFrame(() => {
+          try {
+            // Verificar nuevamente después del frame
+            if (!config.trigger || !config.trigger.isConnected) {
+              console.warn('ScrollTrigger: trigger element is not connected to DOM');
+              resolve(null);
+              return;
+            }
+
+            // Si ya se limpiaron los triggers durante la espera, cancelar
+            if (isCleanedUpRef.current) {
+              resolve(null);
+              return;
+            }
+
+            const trigger = ScrollTrigger.create(config);
+            
+            if (trigger && !isCleanedUpRef.current) {
+              triggersRef.current.push(trigger);
+              resolve(trigger);
+            } else {
+              resolve(null);
+            }
+          } catch (error) {
+            console.error('Error creating ScrollTrigger (delayed):', error);
+            resolve(null);
+          }
+        });
+      });
     } catch (error) {
       console.error('Error creating ScrollTrigger:', error);
-      return null;
+      return Promise.resolve(null);
     }
-  };
+  }, []);
 
-  const killTrigger = (trigger) => {
+  const killTrigger = useCallback((trigger) => {
     if (trigger) {
       try {
         trigger.kill();
@@ -31,12 +65,14 @@ export const useScrollTrigger = () => {
         console.error('Error killing ScrollTrigger:', error);
       }
     }
-  };
+  }, []);
 
-  const killAllTriggers = () => {
+  const killAllTriggers = useCallback(() => {
+    isCleanedUpRef.current = true;
+    
     triggersRef.current.forEach(trigger => {
       try {
-        if (trigger) {
+        if (trigger && typeof trigger.kill === 'function') {
           trigger.kill();
         }
       } catch (error) {
@@ -44,22 +80,31 @@ export const useScrollTrigger = () => {
       }
     });
     triggersRef.current = [];
-  };
+  }, []);
 
-  const refreshTriggers = () => {
+  const refreshTriggers = useCallback(() => {
+    if (isCleanedUpRef.current) return;
+    
     try {
-      ScrollTrigger.refresh();
+      // Usar setTimeout para evitar problemas de timing
+      setTimeout(() => {
+        if (!isCleanedUpRef.current) {
+          ScrollTrigger.refresh();
+        }
+      }, 100);
     } catch (error) {
       console.error('Error refreshing ScrollTriggers:', error);
     }
-  };
+  }, []);
 
   // Cleanup cuando el componente se desmonte
   useEffect(() => {
+    isCleanedUpRef.current = false;
+    
     return () => {
       killAllTriggers();
     };
-  }, []);
+  }, [killAllTriggers]);
 
   return {
     createScrollTrigger,

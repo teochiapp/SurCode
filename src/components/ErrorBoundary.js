@@ -35,16 +35,19 @@ class ErrorBoundary extends React.Component {
         }}>
           <h2 style={{ color: '#e74c3c' }}>Algo salió mal</h2>
           <p>Ha ocurrido un error inesperado. Por favor, recarga la página.</p>
-          {process.env.NODE_ENV === 'development' && (
+          {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
             <details style={{ whiteSpace: 'pre-wrap', textAlign: 'left', marginTop: '10px' }}>
               <summary>Detalles del error (solo en desarrollo)</summary>
               {this.state.error && this.state.error.toString()}
               <br />
-              {this.state.errorInfo.componentStack}
+              {this.state.errorInfo.componentStack || 'No component stack available'}
             </details>
           )}
           <button 
-            onClick={() => window.location.reload()}
+            onClick={() => {
+              this.setState({ hasError: false, error: null, errorInfo: null });
+              window.location.reload();
+            }}
             style={{
               marginTop: '10px',
               padding: '8px 16px',

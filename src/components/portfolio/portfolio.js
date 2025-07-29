@@ -29,29 +29,42 @@ function Portfolio() {
   const { createScrollTrigger } = useScrollTrigger();
 
   useEffect(() => {
-    // Crear animación solo si el elemento existe
-    if (containerRef.current) {
-      // Animación de entrada del contenedor
-      createScrollTrigger({
-        trigger: containerRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-        onToggle: self => {
-          if (self.isActive && containerRef.current) {
-            gsap.fromTo(containerRef.current,
-              { opacity: 0, y: 50 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
-              }
-            );
+    // Usar setTimeout para asegurar que el DOM esté completamente listo
+    const timer = setTimeout(() => {
+      // Crear animación solo si el elemento existe
+      if (containerRef.current) {
+        // Animación de entrada del contenedor
+        createScrollTrigger({
+          trigger: containerRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+          onToggle: self => {
+            if (self.isActive && containerRef.current) {
+              gsap.fromTo(containerRef.current,
+                { opacity: 0, y: 50 },
+                {
+                  opacity: 1,
+                  y: 0,
+                  duration: 1,
+                  ease: "power2.out"
+                }
+              );
+            }
           }
-        }
-      });
-    }
+        }).then(trigger => {
+          if (trigger) {
+            console.log('ScrollTrigger created successfully');
+          }
+        }).catch(error => {
+          console.error('Failed to create ScrollTrigger:', error);
+        });
+      }
+    }, 100); // Dar tiempo al DOM para estabilizarse
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [createScrollTrigger]);
 
   const nextProject = useCallback(() => {
