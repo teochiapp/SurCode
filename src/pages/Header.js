@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
 import { FiMenu, FiX, FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedButton from "../components/hero/extensions/AnimatedButton";
@@ -23,13 +22,14 @@ function Header() {
   // Prevenir scroll cuando el menú está abierto
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      // Usar clases CSS en lugar de manipular estilos directamente
+      document.body.classList.add('no-scroll');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     };
   }, [isOpen]);
 

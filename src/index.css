@@ -70,17 +70,13 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   min-height: 100vh;
   /* Mejorar scroll en móvil */
   -webkit-overflow-scrolling: touch;
-  /* Ocultar scrollbars */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-body::-webkit-scrollbar {
-  display: none; /* Webkit browsers */
+  /* Prevenir saltos de layout por scrollbar */
+  scrollbar-gutter: stable;
 }
 
 #root {
@@ -88,23 +84,56 @@ body::-webkit-scrollbar {
   overflow-x: hidden;
   /* Mejorar scroll en móvil */
   -webkit-overflow-scrolling: touch;
-  /* Ocultar scrollbars */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
 }
 
-#root::-webkit-scrollbar {
-  display: none; /* Webkit browsers */
+/* ========== Control de scroll ========== */
+/* Clase para prevenir scroll cuando el menú móvil está abierto */
+.no-scroll {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
 }
 
-/* Prevenir scrollbars en todos los elementos */
+/* Prevenir problemas de scroll en cambios de dirección */
 * {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scroll-behavior: smooth;
+  /* Prevenir saltos visuales */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-*::-webkit-scrollbar {
-  display: none; /* Webkit browsers */
+/* ========== Scrollbars personalizadas ========== */
+/* Scrollbars mejoradas para prevenir problemas de layout */
+
+/* Webkit scrollbars (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 211, 250, 0.6);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 211, 250, 0.8);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox scrollbars */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(102, 211, 250, 0.6) rgba(255, 255, 255, 0.05);
 }
 
 /* ========== Mejoras para scroll móvil ========== */
@@ -124,20 +153,20 @@ body::-webkit-scrollbar {
     -webkit-tap-highlight-color: transparent;
   }
   
-  /* Asegurar que no aparezcan scrollbars */
+  /* Optimizar scroll en móvil manteniendo funcionalidad */
   body {
     overflow-y: auto;
     overflow-x: hidden;
   }
   
-  /* Optimizar todos los contenedores con scroll */
-  *[style*="overflow"] {
+  /* Optimizar contenedores con scroll específicos */
+  .custom-scroll-hidden {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
   
-  *[style*="overflow"]::-webkit-scrollbar {
+  .custom-scroll-hidden::-webkit-scrollbar {
     display: none;
   }
 }
