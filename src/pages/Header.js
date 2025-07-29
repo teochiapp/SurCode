@@ -22,13 +22,14 @@ function Header() {
   // Prevenir scroll cuando el menú está abierto
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      // Usar clases CSS en lugar de manipular estilos directamente
+      document.body.classList.add('no-scroll');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('no-scroll');
     };
   }, [isOpen]);
 
