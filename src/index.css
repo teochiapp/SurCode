@@ -101,23 +101,14 @@ body {
     overflow-x: hidden;
   }
   
-<<<<<<< HEAD
   /* Optimizar contenedores con scroll específicos */
   .custom-scroll-hidden {
-=======
-  /* Optimizar todos los contenedores con scroll */
-  *[style*="overflow"] {
->>>>>>> d47bec8cff5b07f789047057042505cedee2c5b4
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
   
-<<<<<<< HEAD
   .custom-scroll-hidden::-webkit-scrollbar {
-=======
-  *[style*="overflow"]::-webkit-scrollbar {
->>>>>>> d47bec8cff5b07f789047057042505cedee2c5b4
     display: none;
   }
 }
