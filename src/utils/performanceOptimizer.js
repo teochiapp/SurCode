@@ -23,16 +23,6 @@ const createThrottle = (func, delay) => {
   };
 };
 
-// Debounce para operaciones que no necesitan ejecución inmediata
-const createDebounce = (func, delay) => {
-  let timeoutId;
-  
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
-  };
-};
-
 // Wrapper para operaciones que pueden causar violaciones de rendimiento
 export const optimizePerformance = (operation, options = {}) => {
   const { 
@@ -196,15 +186,20 @@ export const setupPerformanceMonitoring = () => {
   if ('PerformanceObserver' in window) {
     try {
       const observer = new PerformanceObserver((list) => {
+        // Capturar isOptimizing en una variable local para evitar el error de loop
+        const currentOptimizingState = isOptimizing;
+        
         for (const entry of list.getEntries()) {
           if (entry.duration > 50) {
             violationCount++;
             
             // Optimizar próximas operaciones
-            isOptimizing = true;
-            setTimeout(() => {
-              isOptimizing = false;
-            }, 200);
+            if (!currentOptimizingState) {
+              isOptimizing = true;
+              setTimeout(() => {
+                isOptimizing = false;
+              }, 200);
+            }
           }
         }
       });
@@ -239,10 +234,13 @@ export const initializePerformanceOptimizations = () => {
   }
 };
 
-export default {
+// Exportar como objeto nombrado para evitar el error de anonymous default export
+const performanceOptimizerUtils = {
   optimizePerformance,
   optimizeMessageHandlers,
   optimizeAnimations,
   setupPerformanceMonitoring,
   initializePerformanceOptimizations
-}; 
+};
+
+export default performanceOptimizerUtils; 

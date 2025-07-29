@@ -11,10 +11,13 @@ const Loader = () => {
       setIsVisible(true);
     }, 50);
 
+    // Capturar el valor de ref para usar en cleanup
+    const currentLoaderRef = loaderRef.current;
+
     // Asegurar que el componente esté montado antes de cualquier manipulación
-    if (loaderRef.current) {
+    if (currentLoaderRef) {
       // Cualquier lógica adicional de inicialización puede ir aquí
-      loaderRef.current.setAttribute('data-loaded', 'true');
+      currentLoaderRef.setAttribute('data-loaded', 'true');
     }
 
     // Cleanup cuando el componente se desmonte
@@ -23,9 +26,9 @@ const Loader = () => {
         clearTimeout(mountTimeoutRef.current);
       }
       
-      // Limpiar cualquier referencia o listener si es necesario
-      if (loaderRef.current) {
-        loaderRef.current.removeAttribute('data-loaded');
+      // Usar la variable capturada en lugar de loaderRef.current
+      if (currentLoaderRef) {
+        currentLoaderRef.removeAttribute('data-loaded');
       }
     };
   }, []);

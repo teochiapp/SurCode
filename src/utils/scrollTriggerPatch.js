@@ -128,4 +128,10 @@ export const applyGlobalPatches = () => {
   console.log('Global DOM patches applied successfully');
 };
 
-export default { patchScrollTrigger, applyGlobalPatches }; 
+// Exportar como objeto nombrado para evitar el error de anonymous default export
+const scrollTriggerPatchUtils = { 
+  patchScrollTrigger, 
+  applyGlobalPatches 
+};
+
+export default scrollTriggerPatchUtils; 

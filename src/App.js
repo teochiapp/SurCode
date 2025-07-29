@@ -3,7 +3,7 @@ import Header from './pages/Header'
 import AppRoutes from './AppRoutes'
 import ErrorBoundary from './components/ErrorBoundary'
 import { setupGlobalCleanup } from './utils/cleanup'
-import { patchScrollTrigger, applyGlobalPatches } from './utils/scrollTriggerPatch'
+import scrollTriggerPatchUtils from './utils/scrollTriggerPatch'
 import { initializePerformanceOptimizations } from './utils/performanceOptimizer'
 import './index.css'
 
@@ -11,8 +11,8 @@ function App() {
   useEffect(() => {
     // Aplicar parches críticos primero
     try {
-      applyGlobalPatches();
-      patchScrollTrigger();
+      scrollTriggerPatchUtils.applyGlobalPatches();
+      scrollTriggerPatchUtils.patchScrollTrigger();
     } catch (error) {
       console.error('Error applying patches:', error);
     }
