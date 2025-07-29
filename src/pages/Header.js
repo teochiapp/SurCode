@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
 import { FiMenu, FiX, FiGithub, FiInstagram, FiMail } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedButton from "../components/hero/extensions/AnimatedButton";
