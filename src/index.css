@@ -23,7 +23,7 @@
   --primary-cyan: rgb(13, 211, 250);
     --primary-white: rgb(251, 255, 255);
     --dark-blue: rgb(3, 9, 18);
-    --medium-blue: rgb(16, 124, 157);
+    --medium-blue: rgb(72, 130, 148);
     --deep-blue: rgb(10, 44, 72);
 
     --gradient-primary: linear-gradient(135deg, var(--primary-cyan), var(--medium-blue));
@@ -39,10 +39,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   overflow-x: hidden;
   width: 100%;
   /* Mejorar scroll en móvil */
@@ -50,6 +51,10 @@ html {
   /* Ocultar scrollbars en móvil */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+}
+
+#app, main, .wrapper {
+  overflow-x: hidden;
 }
 
 html::-webkit-scrollbar {
@@ -211,6 +216,59 @@ img {
 
 .shiny-text.disabled {
   animation: none;
+}
+
+/* Optimizaciones específicas para Framer Motion - NO afecta background */
+
+/* Optimizaciones solo para elementos animados específicos */
+.floating-circle,
+.scroll-particle,
+.connection-line {
+  /* GPU acceleration solo para elementos animados */
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Optimización durante scroll - solo elementos de ilustración */
+.scrolling .floating-circle,
+.scrolling .scroll-particle,
+.scrolling .connection-line {
+  pointer-events: none;
+}
+
+/* Optimización específica para motion divs de las secciones */
+[data-motion-section] {
+  /* Optimización leve sin afectar layout general */
+  will-change: transform, opacity;
+}
+
+/* Cuando termine la animación, quitar will-change */
+[data-motion-section].animation-complete {
+  will-change: auto;
+}
+
+/* Preservar comportamiento de background fixed */
+body {
+  /* Asegurar que el scroll no interfiera con elements fixed */
+  overflow-x: hidden;
+}
+
+/* Durante scroll activo, simplificar animaciones */
+.scrolling [data-motion-section] {
+  /* Reducir complejidad durante scroll */
+  animation-duration: 0.1s !important;
+}
+
+/* Variables CSS para controlar animaciones durante scroll */
+:root {
+  --scroll-active: 0;
+}
+
+/* Cuando el scroll está activo, pausar animaciones complejas */
+body[style*="--scroll-active: 1"] .floating-circle,
+body[style*="--scroll-active: 1"] .scroll-particle {
+  animation-play-state: paused;
 }
 
 

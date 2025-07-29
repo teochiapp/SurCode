@@ -1,77 +1,102 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionConfig } from 'framer-motion';
 
 const ScrollAnimatedIllustration = () => {
   const { scrollY } = useScroll();
   
-  // Transformaciones principales combinadas para mejor rendimiento
-  const mainTransforms = useTransform(scrollY, [0, 300], [0, 1]);
-  const lineTransforms = useTransform(scrollY, [0, 1500], [0, 1]);
+  // Optimización: Transformaciones menos frecuentes y más suaves
+  const mainProgress = useTransform(scrollY, [0, 500], [0, 1]);
+  const lineProgress = useTransform(scrollY, [0, 1000], [0, 1]);
   
-  // Calcular valores derivados de manera eficiente
-  const y1 = useTransform(mainTransforms, [0, 1], [0, -100]);
-  const y2 = useTransform(mainTransforms, [0, 1], [0, 100]);
-  const y3 = useTransform(mainTransforms, [0, 1], [0, -150]);
-  const scale = useTransform(mainTransforms, [0, 1], [1, 0.8]);
-  const rotate = useTransform(mainTransforms, [0, 1], [0, 360]);
-  const opacity = useTransform(scrollY, [0, 200], [1, 0.3]);
+  // Transformaciones más suaves y menos intensas
+  const y1 = useTransform(mainProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(mainProgress, [0, 1], [0, 50]);
+  const y3 = useTransform(mainProgress, [0, 1], [0, -75]);
+  const scale = useTransform(mainProgress, [0, 1], [1, 0.9]);
+  const rotate = useTransform(mainProgress, [0, 1], [0, 180]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0.5]);
   
-  // Transformaciones de línea optimizadas
-  const lineHeight = useTransform(lineTransforms, [0, 1], [0, 1200]);
-  const lineOpacity = useTransform(mainTransforms, [0, 1], [0, 0.9]);
-  const circleY = useTransform(lineTransforms, [0, 1], [0, 1150]);
-  const circleOpacity = useTransform(scrollY, [0, 400], [0, 1]);
+  // Líneas optimizadas con menor intensidad
+  const lineHeight = useTransform(lineProgress, [0, 1], [0, 800]);
+  const lineOpacity = useTransform(mainProgress, [0, 1], [0, 0.6]);
+  const circleY = useTransform(lineProgress, [0, 1], [0, 600]);
+  const circleOpacity = useTransform(scrollY, [0, 500], [0, 0.8]);
 
   return (
-    <>
+    <MotionConfig
+      transition={{ 
+        type: "tween",
+        ease: "linear",
+        duration: 0.05
+      }}
+    >
       {/* Versión animada para desktop */}
       <DesktopVersion
-        style={{ scale, opacity }}
-        transition={{ duration: 0.1 }}
+        style={{ 
+          scale, 
+          opacity,
+          willChange: 'transform, opacity'
+        }}
       >
         <TechIllustration>
           <motion.div 
             className="floating-circle circle-1"
-            style={{ y: y1 }}
+            style={{ 
+              y: y1,
+              willChange: 'transform'
+            }}
           ></motion.div>
           <motion.div 
             className="floating-circle circle-2"
-            style={{ y: y2 }}
+            style={{ 
+              y: y2,
+              willChange: 'transform'
+            }}
           ></motion.div>
           <motion.div 
             className="floating-circle circle-3"
-            style={{ y: y3 }}
+            style={{ 
+              y: y3,
+              willChange: 'transform'
+            }}
           ></motion.div>
           <motion.div 
             className="connection-line line-1"
-            style={{ rotate }}
+            style={{ 
+              rotate,
+              willChange: 'transform'
+            }}
           ></motion.div>
           <motion.div 
             className="connection-line line-2"
-            style={{ rotate: useTransform(rotate, [0, 360], [0, -180]) }}
+            style={{ 
+              rotate: useTransform(rotate, [0, 360], [0, -180]),
+              willChange: 'transform'
+            }}
           ></motion.div>
           
-          {/* Partículas optimizadas con menos transformaciones individuales */}
+          {/* Partículas optimizadas */}
           <motion.div
             className="scroll-particle particle-1"
             style={{ 
-              opacity: useTransform(mainTransforms, [0, 0.33], [0, 0.8]),
-              scale: useTransform(mainTransforms, [0, 0.33], [0, 1])
+              opacity: useTransform(mainProgress, [0, 0.33], [0, 0.8]),
+              scale: useTransform(mainProgress, [0, 0.33], [0, 1]),
+              willChange: 'transform, opacity'
             }}
           ></motion.div>
           <motion.div
             className="scroll-particle particle-2"
             style={{ 
-              opacity: useTransform(mainTransforms, [0, 0.5], [0, 0.6]),
-              scale: useTransform(mainTransforms, [0, 0.5], [0, 1])
+              opacity: useTransform(mainProgress, [0, 0.5], [0, 0.6]),
+              scale: useTransform(mainProgress, [0, 0.5], [0, 1])
             }}
           ></motion.div>
           <motion.div
             className="scroll-particle particle-3"
             style={{ 
-              opacity: useTransform(mainTransforms, [0, 0.67], [0, 0.7]),
-              scale: useTransform(mainTransforms, [0, 0.67], [0, 1])
+              opacity: useTransform(mainProgress, [0, 0.67], [0, 0.7]),
+              scale: useTransform(mainProgress, [0, 0.67], [0, 1])
             }}
           ></motion.div>
         </TechIllustration>
@@ -110,7 +135,7 @@ const ScrollAnimatedIllustration = () => {
           <div className="scroll-particle particle-3 static"></div>
         </TechIllustration>
       </MobileVersion>
-    </>
+    </MotionConfig>
   );
 };
 

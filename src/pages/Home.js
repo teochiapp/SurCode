@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { motion, useInView } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
 import { useRef } from 'react'
+import { useScrollOptimization, useOptimizedInView } from '../hooks/useScrollOptimization'
 import Hero from '../components/hero/hero'
 import Services from '../components/services/services'
 import Portfolio from '../components/portfolio/portfolio'
@@ -13,6 +14,9 @@ import Skills from '../components/skills/skills'
 import Footer from './Footer';
 
 const Home = () => {
+  // Hook para optimizar scroll
+  useScrollOptimization();
+
   // Refs para detectar cuando cada componente está en viewport
   const servicesRef = useRef(null)
   const teamRef = useRef(null)
@@ -22,92 +26,105 @@ const Home = () => {
   const skillsRef = useRef(null)
   const footerRef = useRef(null);
 
-  // Hooks para detectar cuando cada componente está visible
-  const isServicesInView = useInView(servicesRef, { once: true, margin: "-100px" })
-  const isTeamInView = useInView(teamRef, { once: true, margin: "-100px" })
-  const isBlogInView = useInView(blogRef, { once: true, margin: "-100px" })
-  const isPortfolioInView = useInView(portfolioRef, { once: true, margin: "-150px" })
-  const isContactInView = useInView(contactRef, { once: true, margin: "-100px" })
-  const isSkillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
-  const isFooterInView = useInView(footerRef, { once: true, margin: "-100px" });
+  // Hooks optimizados para detectar cuando cada componente está visible
+  const isServicesInView = useOptimizedInView(servicesRef)
+  const isTeamInView = useOptimizedInView(teamRef)
+  const isBlogInView = useOptimizedInView(blogRef)
+  const isPortfolioInView = useOptimizedInView(portfolioRef, { margin: "-150px" })
+  const isContactInView = useOptimizedInView(contactRef)
+  const isSkillsInView = useOptimizedInView(skillsRef)
+  const isFooterInView = useOptimizedInView(footerRef);
 
   return (
-    <HomeContainer>
+    <MotionConfig
+      transition={{ 
+        type: "tween",
+        ease: "easeOut",
+        duration: 0.3
+      }}
+      reducedMotion="user"
+    >
+      <HomeContainer>
         <Hero />
         
         <motion.div
           ref={servicesRef}
-          initial={{ opacity: 0, x: -50 }}
-          animate={isServicesInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          data-motion-section
+          initial={{ opacity: 0, y: 20 }}
+          animate={isServicesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          className={isServicesInView ? 'animation-complete' : ''}
         >
           <Services />
         </motion.div>
         
         <motion.div
           ref={portfolioRef}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isPortfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          data-motion-section
+          initial={{ opacity: 0, y: 20 }}
+          animate={isPortfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          className={isPortfolioInView ? 'animation-complete' : ''}
         >
-        <Portfolio /> 
+          <Portfolio />
         </motion.div>
-
-        <motion.div
-          id="team"
-          ref={teamRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={isTeamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <TeamDesktopWrapper>
-            <Team />
-          </TeamDesktopWrapper>
-
-          <TeamMobileWrapper>
-            <TeamMobile />
-          </TeamMobileWrapper>
-        </motion.div>
-
-
+        
         <motion.div
           ref={skillsRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isSkillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          data-motion-section
+          initial={{ opacity: 0, y: 20 }}
+          animate={isSkillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          className={isSkillsInView ? 'animation-complete' : ''}
         >
           <Skills />
         </motion.div>
-        
+
+        <motion.div
+          ref={teamRef}
+          data-motion-section
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={isTeamInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+          className={isTeamInView ? 'animation-complete' : ''}
+        >
+          <div className="team-mobile">
+            <TeamMobile />
+          </div>
+          <div className="team-desktop">
+            <Team />
+          </div>
+        </motion.div>
+
         <motion.div
           ref={blogRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={isBlogInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          data-motion-section
+          initial={{ opacity: 0, y: 20 }}
+          animate={isBlogInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          className={isBlogInView ? 'animation-complete' : ''}
         >
           <Blog />
         </motion.div>
-        
-      <motion.div
+
+        <motion.div
           ref={contactRef}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isContactInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          data-motion-section
+          initial={{ opacity: 0, y: 20 }}
+          animate={isContactInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          className={isContactInView ? 'animation-complete' : ''}
         >
-        <Contact /> 
+          <Contact />
         </motion.div>
 
         <motion.div
           ref={footerRef}
-          initial={{ opacity: 0, y: 80, scale: 0.9 }}
-          animate={isFooterInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 80, scale: 0.9 }}
-          transition={{ duration: 1.2, ease: "backOut" }}
+          data-motion-section
+          initial={{ opacity: 0 }}
+          animate={isFooterInView ? { opacity: 1 } : { opacity: 0 }}
+          className={isFooterInView ? 'animation-complete' : ''}
         >
           <Footer />
         </motion.div>
-    </HomeContainer>
-  )
-}
+      </HomeContainer>
+    </MotionConfig>
+  );
+};
 
 export default Home
 
@@ -118,19 +135,20 @@ const HomeContainer = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
-`
-const TeamDesktopWrapper = styled.div`
-  display: block;
 
-  @media (max-width: 767px) {
+  .team-mobile {
     display: none;
+    
+    @media (max-width: 767px) {
+      display: block;
+    }
   }
-`;
 
-const TeamMobileWrapper = styled.div`
-  display: none;
-
-  @media (max-width: 767px) {
+  .team-desktop {
     display: block;
+    
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 `;
