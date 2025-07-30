@@ -158,6 +158,14 @@ export const optimizeAnimations = () => {
 export const setupPerformanceMonitoring = () => {
   let violationCount = 0;
   
+  // Función para manejar optimización, declarada fuera del loop
+  const handleOptimization = () => {
+    isOptimizing = true;
+    setTimeout(() => {
+      isOptimizing = false;
+    }, 200);
+  };
+  
   // Interceptar console.warn para detectar violaciones
   const originalWarn = console.warn;
   console.warn = function(...args) {
@@ -193,12 +201,9 @@ export const setupPerformanceMonitoring = () => {
           if (entry.duration > 50) {
             violationCount++;
             
-            // Optimizar próximas operaciones
+            // Optimizar próximas operaciones usando la función externa
             if (!currentOptimizingState) {
-              isOptimizing = true;
-              setTimeout(() => {
-                isOptimizing = false;
-              }, 200);
+              handleOptimization();
             }
           }
         }
