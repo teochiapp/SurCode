@@ -1,48 +1,8 @@
 // Optimizador de rendimiento simplificado para evitar bucles infinitos
-// Variable global para control de optimización
-let isOptimizing = false;
-
-// Throttle simple para operaciones pesadas (usado en setupPerformanceMonitoring)
-const createThrottle = (func, delay) => {
-  let timeoutId;
-  let lastExecTime = 0;
-  
-  return function (...args) {
-    const currentTime = Date.now();
-    
-    if (currentTime - lastExecTime > delay) {
-      func.apply(this, args);
-      lastExecTime = currentTime;
-    } else {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-        lastExecTime = Date.now();
-      }, delay - (currentTime - lastExecTime));
-    }
-  };
-};
 
 // Monitor de rendimiento básico
 export const setupPerformanceMonitoring = () => {
   let violationCount = 0;
-  
-  // Usar createThrottle para optimizar el manejo de violaciones
-  const throttledViolationHandler = createThrottle((message) => {
-    violationCount++;
-    
-    // Si hay muchas violaciones, activar modo de optimización
-    if (violationCount > 5) {
-      isOptimizing = true;
-      
-      setTimeout(() => {
-        isOptimizing = false;
-        violationCount = Math.max(0, violationCount - 2);
-      }, 1000);
-      
-      console.log('Performance optimization activated due to violations');
-    }
-  }, 1000); // Throttle a 1 segundo
   
   // Interceptar console.warn para detectar violaciones
   const originalWarn = console.warn;
@@ -50,7 +10,16 @@ export const setupPerformanceMonitoring = () => {
     const message = args.join(' ');
     
     if (message.includes('Violation') && message.includes('handler took')) {
-      throttledViolationHandler(message);
+      violationCount++;
+      
+      // Si hay muchas violaciones, activar modo de optimización
+      if (violationCount > 5) {
+        setTimeout(() => {
+          violationCount = Math.max(0, violationCount - 2);
+        }, 1000);
+        
+        console.log('Performance optimization activated due to violations');
+      }
     }
     
     return originalWarn.apply(console, args);
