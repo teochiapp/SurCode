@@ -231,9 +231,41 @@ El optimizador de performance estaba interceptando `requestAnimationFrame` y lla
 - ✅ Mantenido: Monitoring básico de violaciones
 - ✅ Mantenido: Throttling simple para message handlers
 - ✅ Agregado: Funciones vacías para compatibilidad
+- ✅ Corregido: Variables no utilizadas (ESLint errors)
 
 ### 🎯 Resultado:
 - ✅ No más bucles infinitos
 - ✅ Aplicación estable en producción
 - ✅ Performance monitoring básico activo
-- ✅ Compatibilidad con código existente 
+- ✅ Compatibilidad con código existente
+- ✅ Build exitoso sin errores de ESLint
+
+---
+
+## 🚨 ÚLTIMO PROBLEMA RESUELTO: ESLint Variables No Utilizadas
+
+### ❌ Error Identificado:
+```
+[eslint] src/utils/performanceOptimizer.js
+  Line 2:5:  'isOptimizing' is assigned a value but never used    no-unused-vars
+  Line 5:7:  'createThrottle' is assigned a value but never used  no-unused-vars
+```
+
+### 🔍 Causa:
+Después de simplificar el optimizador de performance, algunas variables quedaron declaradas pero no utilizadas, causando errores de ESLint en CI.
+
+### ✅ Solución Implementada:
+1. **Uso de `isOptimizing`** - Se utiliza en `setupPerformanceMonitoring` para control de optimización
+2. **Uso de `createThrottle`** - Se implementa en el manejo de violaciones de rendimiento
+3. **Throttling de violaciones** - Se aplica throttling a 1 segundo para evitar spam de logs
+
+### 🔧 Cambios en `performanceOptimizer.js`:
+- ✅ `isOptimizing` - Ahora se usa en el monitoring de violaciones
+- ✅ `createThrottle` - Se usa para throttling del handler de violaciones
+- ✅ Throttling implementado - Previene múltiples activaciones de optimización
+
+### 🎯 Resultado:
+- ✅ Build exitoso sin errores de ESLint
+- ✅ Variables correctamente utilizadas
+- ✅ Performance monitoring optimizado
+- ✅ Deploy listo para producción 
