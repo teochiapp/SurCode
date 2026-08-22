@@ -1,5 +1,6 @@
 // AppRoutes.jsx
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import BlogPost from './components/blog/BlogPost'
 import TeoChiappero from './pages/TeoChiappero'
@@ -15,7 +16,24 @@ import SBYogaShala from './pages/presupuestos/SBYogaShala'
 import FullPower from './pages/presupuestos/FullPower'
 import Marybe from './pages/presupuestos/Marybe'
 import Domus from './pages/presupuestos/Domus'
+import EspacioJL from './pages/presupuestos/EspacioJL'
 
+// Al cambiar de ruta arrancamos arriba de la pagina.
+// Si la URL trae un #hash (ej: /#contact) no tocamos el scroll,
+// para no pisar el scrollIntoView de las secciones.
+function ScrollToTop() {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    if (hash) return
+    window.scrollTo(0, 0)
+  }, [pathname, hash])
+
+  return null
+}
+
+// Wrapper corto para no repetir <ErrorBoundary> en cada ruta
+const Page = ({ children }) => <ErrorBoundary>{children}</ErrorBoundary>
 
 export default function AppRoutes() {
   // Component structure for Home page (reused for both languages)
@@ -31,111 +49,55 @@ export default function AppRoutes() {
         <Home />
       </ErrorBoundary>
     </>
-  );
+  )
+
+  // Blog (con Header arriba)
+  const BlogPage = (
+    <>
+      <ErrorBoundary>
+        <Header />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <BlogPost />
+      </ErrorBoundary>
+    </>
+  )
 
   return (
     <ErrorBoundary>
+      <ScrollToTop />
       <Routes>
-        {/* Spanish version (default) */}
+        {/* ---------- Home ---------- */}
         <Route path='/' element={HomePage} />
-
-        {/* English version */}
         <Route path='/eng' element={HomePage} />
 
-        {/* Blog posts */}
-        <Route path='/blog/:slug' element={
-          <>
-            <ErrorBoundary>
-              <Header />
-            </ErrorBoundary>
-            <ErrorBoundary>
-              <BlogPost />
-            </ErrorBoundary>
-          </>
-        } />
+        {/* ---------- Blog ---------- */}
+        <Route path='/blog/:slug' element={BlogPage} />
+        <Route path='/eng/blog/:slug' element={BlogPage} />
 
-        {/* English blog posts */}
-        <Route path='/eng/blog/:slug' element={
-          <>
-            <ErrorBoundary>
-              <Header />
-            </ErrorBoundary>
-            <ErrorBoundary>
-              <BlogPost />
-            </ErrorBoundary>
-          </>
-        } />
+        {/* ---------- Teo Chiappero ---------- */}
+        <Route path='/teo-chiappero' element={<Page><TeoChiappero /></Page>} />
+        <Route path='/eng/teo-chiappero' element={<Page><TeoChiappero /></Page>} />
 
-        {/* Teo Chiappero page */}
-        <Route path='/teo-chiappero' element={
-          <ErrorBoundary>
-            <TeoChiappero />
-          </ErrorBoundary>
-        } />
+        {/* ---------- Presupuestos ---------- */}
+        <Route path='/presupuestos/agnes' element={<Page><Agnes /></Page>} />
+        <Route path='/presupuestos/fullpower' element={<Page><FullPower /></Page>} />
+        <Route path='/presupuestos/colegio-abogados' element={<Page><ColegioAbogados /></Page>} />
+        <Route path='/presupuestos/tres-noches' element={<Page><TresNoches /></Page>} />
+        <Route path='/presupuestos/lucho' element={<Page><Lucho /></Page>} />
+        <Route path='/presupuestos/villa-mar-alimentos' element={<Page><VillaMarAlimentos /></Page>} />
+        <Route path='/presupuestos/sb-yoga-shala' element={<Page><SBYogaShala /></Page>} />
+        <Route path='/presupuestos/marybe' element={<Page><Marybe /></Page>} />
+        <Route path='/presupuestos/domus' element={<Page><Domus /></Page>} />
+        <Route path='/presupuestos/espacio-jl' element={<Page><EspacioJL /></Page>} />
 
-        {/* English Teo Chiappero page */}
-        <Route path='/eng/teo-chiappero' element={
-          <ErrorBoundary>
-            <TeoChiappero />
-          </ErrorBoundary>
-        } />
+        {/* ---------- Alias viejos (links ya enviados a clientes) ---------- */}
+        <Route path='/budget/agnes' element={<Navigate to='/presupuestos/agnes' replace />} />
+        <Route path='/presupuesto/fullpower' element={<Navigate to='/presupuestos/fullpower' replace />} />
+        <Route path='/presupuesto/colegio-abogados' element={<Navigate to='/presupuestos/colegio-abogados' replace />} />
 
-        {/* Agnes page */}
-        <Route path='/budget/agnes' element={
-          <ErrorBoundary>
-            <Agnes />
-          </ErrorBoundary>
-        } />
-        {/* Full Power page */}
-        <Route path='/presupuesto/fullpower' element={
-          <ErrorBoundary>
-            <FullPower />
-          </ErrorBoundary>
-        } />
-        {/* Tres Noches al Año page */}
-        <Route path='/presupuestos/tres-noches' element={
-          <ErrorBoundary>
-            <TresNoches />
-          </ErrorBoundary>
-        } />
-        {/* Tres Noches al Año page */}
-        <Route path='/presupuestos/lucho' element={
-          <ErrorBoundary>
-            <Lucho />
-          </ErrorBoundary>
-        } />
-        {/* Tres Noches al Año page */}
-        <Route path='/presupuestos/villa-mar-alimentos' element={
-          <ErrorBoundary>
-            <VillaMarAlimentos />
-          </ErrorBoundary>
-        } />
-
-        {/* Agnes page */}
-        <Route path='/presupuesto/colegio-abogados' element={
-          <ErrorBoundary>
-            <ColegioAbogados />
-          </ErrorBoundary>
-        } />
-        {/* SB Yoga Shala page */}
-        <Route path='/presupuestos/sb-yoga-shala' element={
-          <ErrorBoundary>
-            <SBYogaShala />
-          </ErrorBoundary>
-        } />
-        {/* Marybe page */}
-        <Route path='/presupuestos/marybe' element={
-          <ErrorBoundary>
-            <Marybe />
-          </ErrorBoundary>
-        } />
-        {/* Domus page */}
-        <Route path='/presupuestos/domus' element={
-          <ErrorBoundary>
-            <Domus />
-          </ErrorBoundary>
-        } />
-
+        {/* ---------- 404: cualquier otra URL vuelve al inicio ---------- */}
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </ErrorBoundary>
   )

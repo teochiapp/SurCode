@@ -131,7 +131,7 @@ const EspacioJL = () => {
             <PlanCard>
               <PlanHeader>
                 <PlanTitle>Sitio Web Esencial + Turnos + Carrito de Compras</PlanTitle>
-                <PlanPrice>$420.000</PlanPrice>
+                <PlanPrice>$400.000</PlanPrice>
                 <PlanDescription>
                   Sitio web de una página para un centro de estética, con presentación de tratamientos,
                   reserva de turnos y tienda de productos con carrito integrado en el mismo sitio.
@@ -140,7 +140,7 @@ const EspacioJL = () => {
 
               <PlanFeatures>
                 <PlanFeature>Diseño exclusivo alineado al logo y a la paleta de Espacio JL (tonos tierra, crema y terracota)</PlanFeature>
-                <PlanFeature>Sitio de una página (one page) con secciones: Inicio, Tratamientos, Tienda, Sobre Mí, Turnos y Contacto</PlanFeature>
+                <PlanFeature>Inicio, Tratamientos, Tienda, Sobre Mí, Turnos y Contacto</PlanFeature>
                 <PlanFeature>Listado de servicios con precio y duración: tratamientos faciales, depilación y perfilado de cejas</PlanFeature>
                 <PlanFeature>Reserva de turnos: la clienta selecciona servicio, día y horario, y el pedido llega por WhatsApp y correo</PlanFeature>
                 <PlanFeature>Tienda con carrito de compras integrado en el mismo sitio — perfumes textiles, sahumerios y aromatización</PlanFeature>
@@ -153,7 +153,7 @@ const EspacioJL = () => {
               </PlanFeatures>
 
               <PlanFooter>
-                <FiClock /> Tiempo estimado: 2 semanas
+                <FiClock /> Tiempo estimado: 1 semana / 2 semanas
               </PlanFooter>
             </PlanCard>
 
@@ -162,7 +162,7 @@ const EspacioJL = () => {
               <BestValueBadge>Recomendado</BestValueBadge>
               <PlanHeader>
                 <PlanTitle>Plataforma Integral — Agenda Propia, Tienda y Gestión</PlanTitle>
-                <PlanPrice>$680.000</PlanPrice>
+                <PlanPrice>$700.000</PlanPrice>
                 <PlanDescription>
                   Plataforma completa para un centro de estética multi-servicio, con agenda de turnos propia,
                   tienda online con pagos integrados y una experiencia de reserva y compra profesional.
@@ -173,7 +173,7 @@ const EspacioJL = () => {
                 <PlanFeature>Todo lo incluido en el plan Esencial, con diseño ampliado y navegación multipágina</PlanFeature>
                 <PlanFeature>Sistema de turnos propio con agenda real: disponibilidad por día y horario, duración por servicio y bloqueo automático de horarios ocupados</PlanFeature>
                 <PlanFeature>Configuración de días y horarios de atención, feriados y descansos desde el panel</PlanFeature>
-                <PlanFeature>Confirmación y recordatorio automático del turno por correo y WhatsApp</PlanFeature>
+                <PlanFeature>Confirmación y recordatorio automático del turno por correo </PlanFeature>
                 <PlanFeature>Posibilidad de solicitar seña para reservar el turno (integración con MercadoPago)</PlanFeature>
                 <PlanFeature>Ficha de cada tratamiento con descripción, beneficios, duración, precio y fotos</PlanFeature>
                 <PlanFeature>Tienda online completa con categorías, filtros, buscador y ficha individual de producto</PlanFeature>
@@ -222,7 +222,7 @@ const EspacioJL = () => {
                 </BannerDescription>
               </BannerText>
               <PriceContainer>
-                <MonthlyBreakdown>A arreglar</MonthlyBreakdown>
+                <MonthlyBreakdown>A Coordinar</MonthlyBreakdown>
               </PriceContainer>
             </BannerContent>
           </MaintenanceBanner>

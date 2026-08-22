@@ -1,5 +1,5 @@
 import { FaReact, FaNodeJs, FaDocker, FaWordpress, FaFigma, FaUsers, FaHashtag } from 'react-icons/fa';
-import { SiMysql, SiJavascript, SiCss, SiMiro, SiPhp } from 'react-icons/si';
+import { SiMysql, SiJavascript, SiCss3, SiMiro, SiPhp } from 'react-icons/si';
 import { TbBrandAdobeIllustrator, TbBrandAdobePhotoshop, TbBrandAdobeXd } from 'react-icons/tb';
 
 export const SKILL_CONFIG = {
@@ -54,12 +54,12 @@ export const SKILL_CONFIG = {
     label: 'JavaScript'
   },
   'css': {
-    icon: SiCss,
+    icon: SiCss3,
     color: '#1572B6',
     label: 'CSS'
   },
   'css3': {
-    icon: SiCss,
+    icon: SiCss3,
     color: '#1572B6',
     label: 'CSS'
   },

@@ -1,0 +1,112 @@
+# ============================================================
+#  SurCodes — React (CRA + React Router v7, BrowserRouter)
+#  Ubicar este archivo en la RAIZ del sitio (misma carpeta que index.html)
+# ============================================================
+
+# ------------------------------------------------------------
+# 1) SPA fallback: todas las rutas las resuelve React Router
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Evita que Apache "adivine" extensiones (rompe rutas tipo /presupuestos/domus)
+  Options -MultiViews
+
+  # No tocar archivos ni carpetas que existen realmente
+  # (static/, css/, fonts/, presupuestos/*.png, manifest.json, robots.txt, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # No interceptar el archivo de assets ni el service worker
+  RewriteRule ^(asset-manifest\.json|service-worker\.js)$ - [L]
+
+  # Todo lo demas -> index.html (React Router decide que renderizar)
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+# ------------------------------------------------------------
+# 2) Cache
+#    - index.html NUNCA se cachea (si no, el usuario queda con un build viejo)
+#    - /static/* tiene hash en el nombre -> cache largo
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  <FilesMatch "^(asset-manifest\.json|manifest\.json|service-worker\.js)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Archivos con hash (static/js, static/css, static/media)
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+
+  # Imagenes y fuentes
+  ExpiresByType image/png                 "access plus 6 months"
+  ExpiresByType image/jpeg                "access plus 6 months"
+  ExpiresByType image/webp                "access plus 6 months"
+  ExpiresByType image/svg+xml             "access plus 6 months"
+  ExpiresByType image/x-icon              "access plus 6 months"
+  ExpiresByType font/woff                 "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/font-woff     "access plus 1 year"
+  ExpiresByType application/font-woff2    "access plus 1 year"
+
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+# ------------------------------------------------------------
+# 3) Compresion
+# ------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript text/javascript
+  AddOutputFilterByType DEFLATE application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff font/woff2
+</IfModule>
+
+# ------------------------------------------------------------
+# 4) MIME types (algunos hostings no los traen configurados)
+# ------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/javascript          .js .mjs
+  AddType application/json                .json
+  AddType image/svg+xml                   .svg
+  AddType font/woff                       .woff
+  AddType font/woff2                      .woff2
+  AddType model/gltf-binary               .glb
+  AddType model/gltf+json                 .gltf
+</IfModule>
+
+# ------------------------------------------------------------
+# 5) Seguridad basica
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Bloquear listado de directorios
+Options -Indexes
+
+# Bloquear acceso a archivos sensibles si quedaron subidos por error
+<FilesMatch "^(\.env|\.git.*|package(-lock)?\.json|yarn\.lock|README\.md)$">
+  Require all denied
+</FilesMatch>
+
+# ------------------------------------------------------------
+# 6) Pagina de error (por si Apache responde antes que React)
+# ------------------------------------------------------------
+ErrorDocument 404 /index.html
