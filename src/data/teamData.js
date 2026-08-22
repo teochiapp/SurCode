@@ -6,7 +6,11 @@ export const people = [
     description: "Frontend Developer",
     role: "Backend",
     image: "team/Teo.png",
-    fullImage: "team/TeoFull.jpg",
+    fullImage: "team/TeoPortugal.jpg",
+    avatarStyle: {
+      objectFit: "contain",
+      objectPosition: "center top"
+    },
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",
@@ -24,8 +28,14 @@ export const people = [
     surname: "Toto",
     description: "Fullstack Developer",
     role: "Frontend",
-    image: "team/tomas-ia-nobg.png",
-    fullImage: "team/tomas-ia.jpeg",
+    image: "team/ROMA.png",
+    fullImage: "team/tomas.jpeg",
+    imageStyle: {
+      objectPosition: "center 15%"
+    },
+    avatarStyle: {
+      objectFit: "contain"
+    },
     skills: ["Node.js", "Docker", "MySQL", "React"],
     social: {
       github: "https://github.com/toto-rcv",
@@ -78,7 +88,11 @@ export const getTeamData = (t) => [
     description: t('team.members.teo.description', "Frontend Developer"),
     role: "Frontend",
     image: "team/Teo.png",
-    fullImage: "team/TeoFull.jpg",
+    fullImage: "team/TeoPortugal.jpg",
+    avatarStyle: {
+      objectFit: "contain",
+      objectPosition: "center top"
+    },
     skills: ["React", "JavaScript", "CSS", "Wordpress"],
     social: {
       github: "https://github.com/teochiapp",
@@ -96,8 +110,14 @@ export const getTeamData = (t) => [
     surname: "Toto",
     description: t('team.members.tomas.description', "Fullstack Developer"),
     role: "Fullstack",
-    image: "team/tomas-ia-nobg.png",
-    fullImage: "team/tomas-ia.jpeg",
+    image: "team/ROMA.png",
+    fullImage: "team/tomas.jpeg",
+    imageStyle: {
+      objectPosition: "center 15%"
+    },
+    avatarStyle: {
+      objectFit: "contain"
+    },
     skills: ["Node.js", "Docker", "MySQL", "React"],
     social: {
       github: "https://github.com/toto-rcv",
